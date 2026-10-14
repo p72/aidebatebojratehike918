@@ -16,8 +16,12 @@ Claude Opus 5.5 と gpt-6-astra（Codex CLI）に、2026年9月18日の日銀利
 | `debate/log.md` | 討論ログ。gpt-6-astra はこれを読んで反論する |
 | `debate/astra_turn*.txt` | gpt-6-astra の生の出力（`*.stdout.log` は Codex の実行ログ） |
 | `debate/tts_lines.tsv` | 読み上げ用のセリフ（1発言1行。読み方だけ直したもの） |
+| [video/boj_debate_0918.mp4](video/boj_debate_0918.mp4) | 完成した動画（5分2秒、1920×1080、黒地に白文字、音声付き） |
+| `video/boj_debate_0918.srt` | 動画と同じタイミングの字幕 |
 | `scripts/astra.sh` | gpt-6-astra のセリフを1発言作る |
 | `scripts/build_csv.ps1` | `tts_lines.tsv` から CSV を作り、尺を計算する |
+| `scripts/tts_onecore.ps1` | Windows の音声で、1文ずつ WAV を作る |
+| `scripts/make_video.py` | 読み上げリストの作成と、画面の作成・音声との結合 |
 
 ## 必要なもの
 
@@ -62,6 +66,29 @@ powershell -File scripts/build_csv.ps1 -Tsv debate/tts_lines.tsv -Csv script_boj
 | 上振れ | うわぶれ |
 | AI | エーアイ |
 | gpt-6-astra | ジーピーティーシックス アストラ |
+
+### 4. 動画を作る
+
+ffmpeg と uv（Python）が必要です。途中のファイルは `build/` にでき、Git には入れません。
+
+```bash
+uv run --with pillow python scripts/make_video.py prepare
+```
+```bash
+powershell -File scripts/tts_onecore.ps1 -Rate 1.23
+```
+```bash
+uv run --with pillow python scripts/make_video.py render
+```
+
+- `prepare`：`debate/tts_lines.tsv` を1文ずつに分け、声の名前を付けた読み上げリスト（`build/sentences.tsv`）を作ります。
+- `tts_onecore.ps1`：Windows の OneCore 音声で1文ずつ WAV を作ります。声はナレーター＝Haruka、Opus＝Ichiro、gpt-6-astra＝Ayumi です（Sayaka は WinRT から見えないため使えません）。`-Rate` は話す速さで、1.23 で全体が約5分になります。
+- `render`：1文ごとに画面（PNG）を作り、音声と結合して `video/` に mp4 と srt を書き出します。
+  - 音声合成が文の前後に付ける無音（末尾に約0.75秒）は削り、文の間は0.15秒、話者が替わるときは0.5秒にそろえます。
+  - 画面の表記は読み上げ用から記事の表記に戻します（シーピーアイ→CPI など）。
+  - 画面の切り替えはフレーム単位に丸めた時刻で決めるので、5分続けても音声とずれません。
+
+場面の区切り（ラウンド名）は `make_video.py` の `SCENES` に、`tts_lines.tsv` の発言の順に書いてあります。発言の数を変えたらここも合わせてください。
 
 ## 別の議題で使うとき
 
