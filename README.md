@@ -116,6 +116,34 @@ bash scripts/factcheck_astra.sh debate2
 python scripts/build_article2.py
 ```
 
+**台本と動画（ガチ版）**
+
+| パス | 内容 |
+|---|---|
+| [script2_boj_0918.md](script2_boj_0918.md) | 動画台本。発言ごとの時間の目安とテロップ |
+| [script2_boj_0918.csv](script2_boj_0918.csv) | 読み上げソフト用（1文1行、207行） |
+| [video/boj_debate2_0918.mp4](video/boj_debate2_0918.mp4) | 動画（10分6秒、超早口＝話す速さ2.0倍） |
+| `video/boj_debate2_0918.srt` | 動画と同じタイミングの字幕 |
+| `debate2/tts_lines.tsv` | 読み上げ用のセリフ（`make_tts2.py` が討論ログから作る） |
+| `scripts/make_tts2.py` | 読み上げ用への変換と台本の作成 |
+
+```bash
+python scripts/make_tts2.py
+```
+```bash
+uv run --with pillow python scripts/make_video.py prepare 2
+```
+```bash
+powershell -File scripts/tts_onecore.ps1 -Manifest build2/sentences.tsv -OutDir build2/audio -Rate 2.0
+```
+```bash
+uv run --with pillow python scripts/make_video.py render 2
+```
+
+- `make_tts2.py` は意味を変えずに表記だけ直します。リンクは表示テキストだけ残し、全角・漢数字の小数（１・７％、〇・二五）は 1.7パーセント・0.25 に、カギカッコは読点にします。
+- 動画の画面には、読み上げ用ではなく討論ログの表記（記事と同じ）をそのまま出します。
+- `make_video.py` の最後の引数で、1本目（`1`）とガチ版（`2`）を切り替えます。
+
 - `astra_gachi.sh` は `codex --search exec` で Web 検索をオンにし、`-c model_reasoning_effort=high` で推論の強さを指定します。強さは環境変数 `ASTRA_EFFORT` で変えられます。
 - 1発言に1〜2分、ファクトチェックに5〜10分ほどかかります。
 
