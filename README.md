@@ -18,6 +18,7 @@ Claude Opus 5.5 と gpt-6-astra（Codex CLI）に、2026年9月18日の日銀利
 | `debate/tts_lines.tsv` | 読み上げ用のセリフ（1発言1行。読み方だけ直したもの） |
 | [video/boj_debate_0918.mp4](video/boj_debate_0918.mp4) | 完成した動画（5分2秒、1920×1080、黒地に白文字、音声付き） |
 | `video/boj_debate_0918.srt` | 動画と同じタイミングの字幕 |
+| [video/boj_debate_0918_paged.mp4](video/boj_debate_0918_paged.mp4) | ページ表示版。1画面に1発言（4〜9文）、読み上げ中の文だけ黄色。音声と長さは同じ（`render 1p`） |
 | `scripts/astra.sh` | gpt-6-astra のセリフを1発言作る |
 | `scripts/build_csv.ps1` | `tts_lines.tsv` から CSV を作り、尺を計算する |
 | `scripts/tts_onecore.ps1` | Windows の音声で、1文ずつ WAV を作る |
@@ -144,7 +145,7 @@ uv run --with pillow python scripts/make_video.py render 2
 - `make_tts2.py` は意味を変えずに表記だけ直します。リンクは表示テキストだけ残し、全角・漢数字の小数（１・７％、〇・二五）は 1.7パーセント・0.25 に、カギカッコは読点にします。
 - 動画の画面には、読み上げ用ではなく討論ログの表記（記事と同じ）をそのまま出します。
 - `make_video.py` の最後の引数で、1本目（`1`）とガチ版（`2`）を切り替えます。
-- `render 2p` で、ガチ版のページ表示の動画を作ります。音声はガチ版と同じもの（`build2/audio`）を使うので、合成し直す必要はありません。1発言を7行に収まる単位でページに分け、最後のページが短くなりすぎないよう、文の数をならしています。
+- `render 1p` / `render 2p` で、1本目・ガチ版のページ表示の動画を作ります。数字や英単語（1995、1.25%、Claude など）の途中では改行しません。音声はガチ版と同じもの（`build2/audio`）を使うので、合成し直す必要はありません。1発言を7行に収まる単位でページに分け、最後のページが短くなりすぎないよう、文の数をならしています。
 
 - `astra_gachi.sh` は `codex --search exec` で Web 検索をオンにし、`-c model_reasoning_effort=high` で推論の強さを指定します。強さは環境変数 `ASTRA_EFFORT` で変えられます。
 - 1発言に1〜2分、ファクトチェックに5〜10分ほどかかります。

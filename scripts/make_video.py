@@ -78,6 +78,8 @@ CONFIGS = {
 # ガチ版のページ表示：音声は 2 と同じもの（build2/audio）を使い、画面だけ変える
 CONFIGS["2p"] = dict(CONFIGS["2"], build="build2p", audio="build2/audio",
                      name="boj_debate2_0918_paged", paged=True)
+CONFIGS["1p"] = dict(CONFIGS["1"], build="build1p", audio="build/audio",
+                     name="boj_debate_0918_paged", paged=True)
 C = CONFIGS["1"]
 
 
@@ -219,6 +221,7 @@ def frame_line(path, scene, speaker_label, sentence):
 
 PAGE_FONT, PAGE_LH, PAGE_LINES, PAGE_TOP = 56, 1.6, 7, 340
 HIGHLIGHT = (255, 210, 0)   # 読み上げ中の文の色（ほかの文は白）
+WORD_CHAR = re.compile(r"[0-9A-Za-z０-９.%％\-]")   # 途中で改行しない文字
 
 
 def flow(draw, sentences, ids, fnt, max_w):
@@ -227,8 +230,16 @@ def flow(draw, sentences, ids, fnt, max_w):
     for k in ids:
         for ch in sentences[k]:
             if cur and draw.textlength(cur_text + ch, font=fnt) > max_w and ch not in NO_LINE_START:
-                lines.append(cur)
-                cur, cur_text = [], ""
+                # 数字や英単語（1995、1.25%、Claude）の途中では切らず、単語ごと次の行へ送る
+                cut = len(cur)
+                if WORD_CHAR.match(ch):
+                    while cut > 0 and WORD_CHAR.match(cur[cut - 1][0]):
+                        cut -= 1
+                    if cut == 0:      # 1行より長い単語は、仕方なくそこで切る
+                        cut = len(cur)
+                lines.append(cur[:cut])
+                cur = cur[cut:]
+                cur_text = "".join(c for c, _ in cur)
             cur.append((ch, k))
             cur_text += ch
     if cur:
