@@ -208,6 +208,28 @@ uv run --with pillow python scripts/make_video.py render debate3 paged
 - 台本は [script3_food_tax.md](script3_food_tax.md)、読み上げ用データは [script3_food_tax.csv](script3_food_tax.csv)（210行）です。
 - フォルダの中身は sol 版（`debate3sol/`）と同じ構成です。
 
+## 4本目（攻守交代）：食料品の消費税1%は正しいのか？（反リフレ派 vs リフレ派）
+
+[debate4_food_tax_swap.md](debate4_food_tax_swap.md)：3本目と同じ議題で立場を入れ替え、Opus が反リフレ派（減税に反対）、gpt-6.1-sol がリフレ派（減税に賛成）を受け持ちました（`-m gpt-6.1-sol` で固定）。全16発言・5,670字。相互ファクトチェックの結果は、Opus が57件中「不正確」3・「確認できない」7、gpt-6.1-sol が13件すべて正しい、でした。
+
+音声と動画は、Windows 機（Steam Deck）で次を実行します。
+
+```bash
+uv run --with pillow python scripts/make_video.py prepare debate4
+```
+```bash
+powershell -File scripts/tts_onecore.ps1 -Manifest build_debate4/sentences.tsv -OutDir build_debate4/audio -Rate 2.0
+```
+```bash
+uv run --with pillow python scripts/make_video.py render debate4
+```
+```bash
+uv run --with pillow python scripts/make_video.py render debate4 paged
+```
+
+- 出力は `video/food_tax_debate4_swap.mp4` と `video/food_tax_debate4_swap_paged.mp4` です。
+- 台本は [script4_food_tax_swap.md](script4_food_tax_swap.md)、読み上げ用データは [script4_food_tax_swap.csv](script4_food_tax_swap.csv)（222行）です。
+
 ## 別の議題で使うとき
 
 議題はスクリプトに書かず、討論フォルダの `topic.env` に書きます。スクリプトは書き換えずに、フォルダ名を引数で渡すだけです。
