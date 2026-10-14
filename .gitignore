@@ -4,3 +4,4 @@ build2/
 build2p/
 __pycache__/
 build_*/
+*.stdout.log

@@ -14,7 +14,7 @@ Claude Opus 5.5 と gpt-6-astra（Codex CLI）に、2026年9月18日の日銀利
 | [script_boj_0918.csv](script_boj_0918.csv) | 読み上げソフト用（`話者,セリフ`、1文1行、BOM付き UTF-8） |
 | `debate/facts.md` | ファクトシート。両者に同じものを渡した |
 | `debate/log.md` | 討論ログ。gpt-6-astra はこれを読んで反論する |
-| `debate/astra_turn*.txt` | gpt-6-astra の生の出力（`*.stdout.log` は Codex の実行ログ） |
+| `debate/astra_turn*.txt` | gpt-6-astra の生の出力（Codex の実行ログ `*.stdout.log` は、作業フォルダのパスなどが入るので公開前に削除し、Git に入れない設定にした） |
 | `debate/tts_lines.tsv` | 読み上げ用のセリフ（1発言1行。読み方だけ直したもの） |
 | [video/boj_debate_0918.mp4](video/boj_debate_0918.mp4) | 完成した動画（5分2秒、1920×1080、黒地に白文字、音声付き） |
 | `video/boj_debate_0918.srt` | 動画と同じタイミングの字幕 |
@@ -187,7 +187,7 @@ uv run --with pillow python scripts/make_video.py render debate3sol paged
 
 ## 3本目（gpt-6-astra 版）：食料品の消費税1%は正しいのか？
 
-[debate3_food_tax.md](debate3_food_tax.md)：sol 版と同じ議題・同じルールで、相手を gpt-6-astra に固定してやり直した討論です（`-m gpt-6-astra`。各 `debate3/astra_turn*.stdout.log` の `model:` 行で確認できます）。全16発言・5,710字。相互ファクトチェックの結果は、Opus が39件中「不正確」4、gpt-6-astra が12件中「確認できない」1（不正確0）でした。
+[debate3_food_tax.md](debate3_food_tax.md)：sol 版と同じ議題・同じルールで、相手を gpt-6-astra に固定してやり直した討論です（`-m gpt-6-astra`。実行ログの `model:` 行で確認済み）。全16発言・5,710字。相互ファクトチェックの結果は、Opus が39件中「不正確」4、gpt-6-astra が12件中「確認できない」1（不正確0）でした。
 
 音声と動画は、Windows 機（Steam Deck）で次を実行します。
 

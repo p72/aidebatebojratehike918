@@ -15,7 +15,7 @@
 ### 制作メモ
 
 - **Opus**：Claude Opus 5.5。発言は Claude が自分で Web 検索して書きました。調べた中身は gpt-6-astra に渡していません（`debate3/opus_notes.md`）。
-- **gpt-6-astra**：Codex CLI で、モデルを `-m gpt-6-astra` で指定して生成しました（各 `astra_turn*.stdout.log` の `model:` 行で確認できます）。Web 検索あり（`codex --search`）、推論の強さは high です。毎回、議題・ルール・それまでの討論ログだけを渡しました。発言は**手を加えていません**。本文中のリンクも gpt-6-astra が付けたものです。
+- **gpt-6-astra**：Codex CLI で、モデルを `-m gpt-6-astra` で指定して生成しました（Codex の実行ログの `model:` 行で確認しました）。Web 検索あり（`codex --search`）、推論の強さは high です。毎回、議題・ルール・それまでの討論ログだけを渡しました。発言は**手を加えていません**。本文中のリンクも gpt-6-astra が付けたものです。
 - **ファクトチェック**：Opus の発言は gpt-6-astra が Web 検索で、gpt-6-astra の発言は Opus が Web 検索で検証しました。gpt-6-astra のファクトチェックは、ChatGPT の利用上限で一度止まったため、上限が解けてから実行し直しました。
 - **分量**：対話部分は{{CHARS}}字。超早口（毎分550字）で約10分です。
 - 勝敗の判定はしていません。
