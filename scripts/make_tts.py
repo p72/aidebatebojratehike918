@@ -14,12 +14,13 @@ from topic import ROOT, load, read_log, scene_names
 CHARS_PER_MIN = 550          # 超早口
 GAP_SPEAKER, CARD_SEC = 0.3, 1.0
 
-ZEN = str.maketrans("０１２３４５６７８９", "0123456789")
+ZEN = str.maketrans("０１２３４５６７８９ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ",
+                    "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ")   # 全角の数字と英大文字は半角に
 KANJI = {"〇": "0", "一": "1", "二": "2", "三": "3", "四": "4",
          "五": "5", "六": "6", "七": "7", "八": "8", "九": "9"}
 
 # どの議題でも使う読み方（長いものから順に置き換える）
-READINGS = [("CPI", "シーピーアイ"),
+READINGS = [("CPI", "シーピーアイ"), ("IMF", "アイエムエフ"),
             ("ＣＰＩ", "シーピーアイ"), ("%", "パーセント"), ("上振れ", "うわぶれ"),
             ("〜", "から")]
 

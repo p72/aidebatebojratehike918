@@ -230,6 +230,29 @@ uv run --with pillow python scripts/make_video.py render debate4 paged
 - 出力は `video/food_tax_debate4_swap.mp4` と `video/food_tax_debate4_swap_paged.mp4` です。
 - 台本は [script4_food_tax_swap.md](script4_food_tax_swap.md)、読み上げ用データは [script4_food_tax_swap.csv](script4_food_tax_swap.csv)（222行）です。
 
+## 5本目：米9月CPIで、FRBは利上げに向かうのか？
+
+[debate5_us_cpi_sep.md](debate5_us_cpi_sep.md)：2026年10月14日21時30分（日本時間）に発表された米9月CPI（総合3.7%、コア2.6%）を受けて、発表直後に討論しました。Opus が利上げ見送り派、gpt-6.1-sol が利上げ強まった派です（`-m gpt-6.1-sol`）。全16発言・5,725字。相互ファクトチェックの結果は、Opus が78件中「不正確」11・「確認できない」4、gpt-6.1-sol が12件中「確認できない」1（不正確0）でした。Opus は FRED API から公式データを取り、計算に使いました（取得した系列は記事の末尾）。
+
+音声と動画は、Windows 機（Steam Deck）で次を実行します。
+
+```bash
+uv run --with pillow python scripts/make_video.py prepare debate5
+```
+```bash
+powershell -File scripts/tts_onecore.ps1 -Manifest build_debate5/sentences.tsv -OutDir build_debate5/audio -Rate 2.0
+```
+```bash
+uv run --with pillow python scripts/make_video.py render debate5
+```
+```bash
+uv run --with pillow python scripts/make_video.py render debate5 paged
+```
+
+- 出力は `video/us_cpi_debate5.mp4` と `video/us_cpi_debate5_paged.mp4` です。
+- 台本は [script5_us_cpi_sep.md](script5_us_cpi_sep.md)、読み上げ用データは [script5_us_cpi_sep.csv](script5_us_cpi_sep.csv)（216行）です。
+- `make_tts.py` は全角の英字（ＦＲＢ、ＩＭＦ など）を半角に直してから読み方を当てるようにしました。3本目・4本目の読み上げ用データもこれで作り直しています。
+
 ## 別の議題で使うとき
 
 議題はスクリプトに書かず、討論フォルダの `topic.env` に書きます。スクリプトは書き換えずに、フォルダ名を引数で渡すだけです。
