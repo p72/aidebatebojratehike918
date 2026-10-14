@@ -3,3 +3,4 @@ build1p/
 build2/
 build2p/
 __pycache__/
+build_*/

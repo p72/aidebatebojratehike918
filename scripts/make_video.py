@@ -1,10 +1,12 @@
 """討論動画を作る。
 
-  uv run --with pillow python scripts/make_video.py prepare [1|2]   # 1文ずつの読み上げリストを作る
-  powershell -File scripts/tts_onecore.ps1 ...                       # 1文ずつ WAV を作る
-  uv run --with pillow python scripts/make_video.py render [1|2]    # 画面を作り、音声と結合する
+  uv run --with pillow python scripts/make_video.py prepare <対象>          # 1文ずつの読み上げリストを作る
+  powershell -File scripts/tts_onecore.ps1 ...                              # 1文ずつ WAV を作る
+  uv run --with pillow python scripts/make_video.py render <対象> [paged]   # 画面を作り、音声と結合する
 
-1 は1本目（ファクトシートあり、約5分）、2 はガチ討論版（超早口、約10分）。
+<対象> は 1（1本目・ファクトシートあり）、2（ガチ討論版）、1p・2p（それぞれのページ表示版）、
+または topic.env のある討論フォルダ（debate3 など）。フォルダのときは、途中のファイルは build_<フォルダ>/ にでき、
+最後に paged を付けるとページ表示版（音声は同じものを使う）を作る。
 """
 import re
 import subprocess
@@ -13,6 +15,8 @@ import wave
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
+
+from topic import load, read_log, scene_names
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT_DIR = ROOT / "video"
@@ -23,12 +27,13 @@ FONT_B = r"C:\Windows\Fonts\BIZ-UDGothicB.ttc"
 WHITE, GRAY, DIM = (255, 255, 255), (150, 150, 150), (90, 90, 90)
 
 
-# 話者ごとの声と画面表示（声の名前は tts_onecore.ps1 で使う）
-SPEAKERS = {
-    "ナレーター": ("Haruka", "ナレーター"),
-    "Opus": ("Ichiro", "Opus｜反対"),
-    "gpt-6-astra": ("Ayumi", "gpt-6-astra｜賛成"),
-}
+# 話者ごとの声（名前は tts_onecore.ps1 で使う）。画面の立場の表示は設定の tags から
+VOICES = {"ナレーター": "Haruka", "Opus": "Ichiro", "gpt-6-astra": "Ayumi"}
+
+
+def speaker_label(speaker):
+    tag = C["tags"].get(speaker)
+    return f"{speaker}｜{tag}" if tag else speaker
 
 # 発言（tts_lines.tsv の行）ごとの場面。カードは場面の頭に無音で出す
 SCENES = [
@@ -46,16 +51,13 @@ SCENES = [
     ("エンディング", None),
 ]
 
-SCENES2_CARDS = {1: "冒頭の主張", 3: "第1ラウンド", 5: "第2ラウンド", 7: "第3ラウンド",
-                 9: "第4ラウンド", 11: "第5ラウンド", 13: "第6ラウンド", 15: "最終弁論"}
-
-
-def scenes2():
-    """ガチ版：ナレーター＋16発言＋ナレーター。"""
+def gachi_scenes(n_turns):
+    """ガチ版：ナレーター＋討論の発言＋ナレーター。"""
+    cards = scene_names(n_turns)
     out, cur = [("オープニング", None)], ""
-    for i in range(1, 17):
-        if i in SCENES2_CARDS:
-            cur = SCENES2_CARDS[i]
+    for i in range(1, n_turns + 1):
+        if i in cards:
+            cur = cards[i]
             out.append((cur, cur))
         else:
             out.append((cur, None))
@@ -63,17 +65,24 @@ def scenes2():
     return out
 
 
+def from_topic(dir_name, build=None):
+    """topic.env のある討論フォルダから、ガチ版の設定を作る。"""
+    T = load(dir_name)
+    return dict(tsv=f"{dir_name}/tts_lines.tsv", log=f"{dir_name}/log.md", build=build or f"build_{dir_name}",
+                name=T["VIDEO"], scenes=gachi_scenes(len(read_log(dir_name))),
+                title_sec=2.5, card_sec=1.0, end_sec=4.0, gap_sentence=0.08, gap_speaker=0.3,
+                title=(T["TITLE_KICKER"], T["TITLE"].split("｜")), end=T["END"].split("｜"),
+                tags={"Opus": T["OPUS_TAG"], "gpt-6-astra": T["ASTRA_TAG"]})
+
+
 CONFIGS = {
     "1": dict(tsv="debate/tts_lines.tsv", log=None, build="build", name="boj_debate_0918",
               scenes=SCENES, title_sec=3.0, card_sec=1.5, end_sec=4.0,
               gap_sentence=0.15, gap_speaker=0.5,
               title=("AI vs AI 討論", ["9月18日の日銀利上げは", "正しかったのか？"]),
-              end=["答え合わせは", "10月29〜30日の日銀会合"]),
-    "2": dict(tsv="debate2/tts_lines.tsv", log="debate2/log.md", build="build2", name="boj_debate2_0918",
-              scenes=scenes2(), title_sec=2.5, card_sec=1.0, end_sec=4.0,
-              gap_sentence=0.08, gap_speaker=0.3,
-              title=("AI vs AI ガチ討論　ファクトシートなし", ["9月18日の日銀利上げは", "正しかったのか？"]),
-              end=["相互ファクトチェック", "Opus：45件中 不正確7", "gpt-6-astra：15件中 不正確0"]),
+              end=["答え合わせは", "10月29〜30日の日銀会合"],
+              tags={"Opus": "反対", "gpt-6-astra": "賛成"}),
+    "2": from_topic("debate2", build="build2"),
 }
 # ガチ版のページ表示：音声は 2 と同じもの（build2/audio）を使い、画面だけ変える
 CONFIGS["2p"] = dict(CONFIGS["2"], build="build2p", audio="build2/audio",
@@ -83,9 +92,11 @@ CONFIGS["1p"] = dict(CONFIGS["1"], build="build1p", audio="build/audio",
 C = CONFIGS["1"]
 
 
-def use(key):
+def use(key, paged=False):
     global C, TSV, BUILD, SENTENCES, AUDIO, FRAMES, OUT_MP4, OUT_SRT
-    C = CONFIGS[key]
+    C = CONFIGS.get(key) or from_topic(key.rstrip("/"))
+    if paged:
+        C = dict(C, build=C["build"] + "p", audio=f"{C['build']}/audio", name=C["name"] + "_paged", paged=True)
     TSV = ROOT / C["tsv"]
     BUILD = ROOT / C["build"]
     SENTENCES, FRAMES = BUILD / "sentences.tsv", BUILD / "frames"
@@ -142,7 +153,7 @@ def prepare():
             continue
         speaker, text = line.split("\t", 1)
         for s in split_sentences(text):
-            rows.append(f"{len(rows):03d}\t{SPEAKERS[speaker][0]}\t{s}")
+            rows.append(f"{len(rows):03d}\t{VOICES[speaker]}\t{s}")
     SENTENCES.write_text("\n".join(rows) + "\n", encoding="utf-8")
     print(f"{len(rows)} sentences -> {SENTENCES}")
 
@@ -186,7 +197,8 @@ def frame_title(path):
     kicker, title = C["title"]
     centered(d, [kicker], font(FONT_R, 44), 300, GRAY)
     centered(d, title, font(FONT_B, 96), 520, WHITE)
-    centered(d, ["Opus（反対）　vs　gpt-6-astra（賛成）"], font(FONT_R, 52), 800, WHITE)
+    tags = C["tags"]
+    centered(d, [f"Opus（{tags['Opus']}）　vs　gpt-6-astra（{tags['gpt-6-astra']}）"], font(FONT_R, 52), 800, WHITE)
     img.save(path)
 
 
@@ -361,7 +373,7 @@ def render():
             add_silence(CARD_SEC)
         elif prev is not None:
             add_silence(GAP_SPEAKER)
-        label = SPEAKERS[speaker][1]
+        label = speaker_label(speaker)
         pages = paginate(displays[k]) if C.get("paged") else None
         if pages:
             page_sizes.append([len(pg) for pg in pages])
@@ -432,5 +444,5 @@ def render():
 
 
 if __name__ == "__main__":
-    use(sys.argv[2] if len(sys.argv) > 2 else "1")
+    use(sys.argv[2] if len(sys.argv) > 2 else "1", paged=sys.argv[3:4] == ["paged"])
     {"prepare": prepare, "render": render}[sys.argv[1]]()
