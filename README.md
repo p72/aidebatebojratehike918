@@ -90,6 +90,35 @@ uv run --with pillow python scripts/make_video.py render
 
 場面の区切り（ラウンド名）は `make_video.py` の `SCENES` に、`tts_lines.tsv` の発言の順に書いてあります。発言の数を変えたらここも合わせてください。
 
+## ガチ討論版（2本目）
+
+[debate2_boj_0918.md](debate2_boj_0918.md)：ファクトシートを共有せず、両者が自分で Web を調べて本気で勝ちにいく版です。全16発言・5,784字（超早口で約10分）。最後に相互ファクトチェックが付いています。
+
+| パス | 内容 |
+|---|---|
+| `debate2/log.md` | 討論ログ |
+| `debate2/astra_turn*.txt` | gpt-6-astra の生の出力 |
+| `debate2/opus_notes.md` | Opus の作戦メモ（gpt-6-astra には渡していない） |
+| `debate2/factcheck_by_astra.md` | Opus の発言を gpt-6-astra が検証した表 |
+| `debate2/factcheck_by_opus.md` | gpt-6-astra の発言を Opus が検証した表 |
+| `debate2/article_head.md`、`article_tail.md` | 記事の冒頭と末尾 |
+| `scripts/astra_gachi.sh` | gpt-6-astra の発言を作る（Web 検索あり、推論の強さ high） |
+| `scripts/factcheck_astra.sh` | gpt-6-astra に Opus の発言を検証させる |
+| `scripts/build_article2.py` | 討論ログとファクトチェックから記事を組み立てる |
+
+```bash
+bash scripts/astra_gachi.sh debate2 1 opening
+```
+```bash
+bash scripts/factcheck_astra.sh debate2
+```
+```bash
+python scripts/build_article2.py
+```
+
+- `astra_gachi.sh` は `codex --search exec` で Web 検索をオンにし、`-c model_reasoning_effort=high` で推論の強さを指定します。強さは環境変数 `ASTRA_EFFORT` で変えられます。
+- 1発言に1〜2分、ファクトチェックに5〜10分ほどかかります。
+
 ## 別の議題で使うとき
 
 - `scripts/astra.sh` の議題と立場（「議題：…」「あなたの立場：…」の行）を書き換えます。
