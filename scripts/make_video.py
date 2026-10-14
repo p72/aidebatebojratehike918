@@ -75,6 +75,9 @@ CONFIGS = {
               title=("AI vs AI ガチ討論　ファクトシートなし", ["9月18日の日銀利上げは", "正しかったのか？"]),
               end=["相互ファクトチェック", "Opus：45件中 不正確7", "gpt-6-astra：15件中 不正確0"]),
 }
+# ガチ版のページ表示：音声は 2 と同じもの（build2/audio）を使い、画面だけ変える
+CONFIGS["2p"] = dict(CONFIGS["2"], build="build2p", audio="build2/audio",
+                     name="boj_debate2_0918_paged", paged=True)
 C = CONFIGS["1"]
 
 
@@ -83,7 +86,8 @@ def use(key):
     C = CONFIGS[key]
     TSV = ROOT / C["tsv"]
     BUILD = ROOT / C["build"]
-    SENTENCES, AUDIO, FRAMES = BUILD / "sentences.tsv", BUILD / "audio", BUILD / "frames"
+    SENTENCES, FRAMES = BUILD / "sentences.tsv", BUILD / "frames"
+    AUDIO = ROOT / C.get("audio", f"{C['build']}/audio")
     OUT_MP4, OUT_SRT = OUT_DIR / f"{C['name']}.mp4", OUT_DIR / f"{C['name']}.srt"
 
 
@@ -211,6 +215,71 @@ def frame_line(path, scene, speaker_label, sentence):
     img.save(path)
 
 
+# ---------- ページ表示（1画面に複数の文、読んでいる文だけ明るく） ----------
+
+PAGE_FONT, PAGE_LH, PAGE_LINES, PAGE_TOP = 56, 1.6, 7, 340
+HIGHLIGHT = (255, 210, 0)   # 読み上げ中の文の色（ほかの文は白）
+
+
+def flow(draw, sentences, ids, fnt, max_w):
+    """文を改行せずに段落として流し、行ごとに (文字, 文の番号) の列を返す。"""
+    lines, cur, cur_text = [], [], ""
+    for k in ids:
+        for ch in sentences[k]:
+            if cur and draw.textlength(cur_text + ch, font=fnt) > max_w and ch not in NO_LINE_START:
+                lines.append(cur)
+                cur, cur_text = [], ""
+            cur.append((ch, k))
+            cur_text += ch
+    if cur:
+        lines.append(cur)
+    return lines
+
+
+def paginate(sentences):
+    """1発言の文を、PAGE_LINES 行に収まる単位でページに分ける。"""
+    d = ImageDraw.Draw(Image.new("RGB", (8, 8)))
+    fnt = font(FONT_R, PAGE_FONT)
+    pages, cur = [], []
+    for j in range(len(sentences)):
+        if cur and len(flow(d, sentences, cur + [j], fnt, W - 240)) > PAGE_LINES:
+            pages.append(cur)
+            cur = []
+        cur.append(j)
+    if cur:
+        pages.append(cur)
+    # 後ろのページが極端に短くならないよう、前のページの最後の文を送ってならす
+    fits = lambda ids: len(flow(d, sentences, ids, fnt, W - 240)) <= PAGE_LINES
+    for i in range(len(pages) - 1, 0, -1):
+        while len(pages[i]) + 1 < len(pages[i - 1]) and fits([pages[i - 1][-1]] + pages[i]):
+            pages[i].insert(0, pages[i - 1].pop())
+    return pages
+
+
+def frame_page(path, scene, speaker_label, sentences, ids, active, page_no, n_pages):
+    img, d = new_canvas()
+    d.text((120, 80), scene, font=font(FONT_R, 40), fill=GRAY)
+    if n_pages > 1:
+        f_no = font(FONT_R, 40)
+        no = f"{page_no}/{n_pages}"
+        d.text((W - 120 - d.textlength(no, font=f_no), 80), no, font=f_no, fill=GRAY)
+    d.text((120, 180), speaker_label, font=font(FONT_B, 60), fill=WHITE)
+    d.line([(120, 270), (1800, 270)], fill=DIM, width=2)
+    fnt = font(FONT_R, PAGE_FONT)
+    y = PAGE_TOP
+    for line in flow(d, sentences, ids, fnt, W - 240):
+        x = 120
+        run, run_k = "", line[0][1]
+        for ch, k in line + [("", None)]:   # 番号が変わるところで色を切り替えて描く
+            if k != run_k:
+                d.text((x, y), run, font=fnt, fill=HIGHLIGHT if run_k == active else WHITE)
+                x += d.textlength(run, font=fnt)
+                run, run_k = "", k
+            run += ch
+        y += int(PAGE_FONT * PAGE_LH)
+    img.save(path)
+
+
 def frame_end(path):
     img, d = new_canvas()
     centered(d, C["end"], font(FONT_B, 84 if len(C["end"]) <= 2 else 72), 400, WHITE)
@@ -272,7 +341,7 @@ def render():
     timeline.append((p, t, t + TITLE_SEC, None))
     add_silence(TITLE_SEC)
 
-    idx, prev = 0, None
+    idx, prev, page_sizes = 0, None, []
     for k, ((speaker, sentences), (scene, card)) in enumerate(zip(speeches, C["scenes"])):
         if card:
             p = FRAMES / f"card{k:02d}.png"
@@ -282,6 +351,9 @@ def render():
         elif prev is not None:
             add_silence(GAP_SPEAKER)
         label = SPEAKERS[speaker][1]
+        pages = paginate(displays[k]) if C.get("paged") else None
+        if pages:
+            page_sizes.append([len(pg) for pg in pages])
         for j, s in enumerate(sentences):
             if j:
                 add_silence(GAP_SENTENCE)
@@ -291,7 +363,11 @@ def render():
                 data = trim_silence(w.readframes(w.getnframes()), params)
             disp = displays[k][j]
             p = FRAMES / f"{idx:03d}.png"
-            frame_line(p, scene, label, disp)
+            if pages:
+                no = next(n for n, pg in enumerate(pages) if j in pg)
+                frame_page(p, scene, label, displays[k], pages[no], j, no + 1, len(pages))
+            else:
+                frame_line(p, scene, label, disp)
             start = t
             chunks.append(data)
             t += len(data) / (params.sampwidth * params.nchannels) / params.framerate
@@ -337,6 +413,10 @@ def render():
         "-c:a", "aac", "-b:a", "160k", "-ar", "48000", "-shortest", "-movflags", "+faststart",
         str(OUT_MP4),
     ], check=True)
+    if page_sizes:
+        flat = [n for sizes in page_sizes for n in sizes]
+        print(f"{len(flat)} pages, sentences per page: min {min(flat)} / max {max(flat)} / "
+              f"avg {sum(flat) / len(flat):.1f}")
     print(f"{idx} sentences, {t:.1f} sec -> {OUT_MP4}")
 
 

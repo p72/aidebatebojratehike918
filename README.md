@@ -124,6 +124,7 @@ python scripts/build_article2.py
 | [script2_boj_0918.csv](script2_boj_0918.csv) | 読み上げソフト用（1文1行、207行） |
 | [video/boj_debate2_0918.mp4](video/boj_debate2_0918.mp4) | 動画（10分6秒、超早口＝話す速さ2.0倍） |
 | `video/boj_debate2_0918.srt` | 動画と同じタイミングの字幕 |
+| [video/boj_debate2_0918_paged.mp4](video/boj_debate2_0918_paged.mp4) | 別バージョン。1画面に3〜10文（平均約6文）をまとめ、読み上げ中の文だけ黄色、ほかは白。音声と長さは同じ |
 | `debate2/tts_lines.tsv` | 読み上げ用のセリフ（`make_tts2.py` が討論ログから作る） |
 | `scripts/make_tts2.py` | 読み上げ用への変換と台本の作成 |
 
@@ -143,6 +144,7 @@ uv run --with pillow python scripts/make_video.py render 2
 - `make_tts2.py` は意味を変えずに表記だけ直します。リンクは表示テキストだけ残し、全角・漢数字の小数（１・７％、〇・二五）は 1.7パーセント・0.25 に、カギカッコは読点にします。
 - 動画の画面には、読み上げ用ではなく討論ログの表記（記事と同じ）をそのまま出します。
 - `make_video.py` の最後の引数で、1本目（`1`）とガチ版（`2`）を切り替えます。
+- `render 2p` で、ガチ版のページ表示の動画を作ります。音声はガチ版と同じもの（`build2/audio`）を使うので、合成し直す必要はありません。1発言を7行に収まる単位でページに分け、最後のページが短くなりすぎないよう、文の数をならしています。
 
 - `astra_gachi.sh` は `codex --search exec` で Web 検索をオンにし、`-c model_reasoning_effort=high` で推論の強さを指定します。強さは環境変数 `ASTRA_EFFORT` で変えられます。
 - 1発言に1〜2分、ファクトチェックに5〜10分ほどかかります。
