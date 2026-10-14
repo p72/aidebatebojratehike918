@@ -58,3 +58,4 @@
 - IMF の2026年の韓国の1人当たりGDP見通し：4月時点 37,412ドル（[中央日報英語版](https://www.koreajoongangdaily.com/business/imf-projects-koreas-real-gdp-per-capita-to-lag-behind-taiwans-by-over-10000-in-five-years/12523409) の記述、版は未確定）、10月時点 約43,511ドル（[亜洲経済](https://japan.ajunews.com/view/20261014145258643)）。日本は4月 35,703ドル、10月 約35,400ドル（同）。いずれも報道・集計サイト経由で、IMF の原典は未確認。
 | 14 | acee7866126af50b4 | opus | 4 | 68,258 |
 | 16 | ab0c6cd83ae287c87 | opus | 1 | 66,274 |
+| ファクトチェック | af5c29e07e44b9aa5 | opus | 30 | 102,510 |

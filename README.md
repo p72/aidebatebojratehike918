@@ -253,6 +253,38 @@ uv run --with pillow python scripts/make_video.py render debate5 paged
 - 台本は [script5_us_cpi_sep.md](script5_us_cpi_sep.md)、読み上げ用データは [script5_us_cpi_sep.csv](script5_us_cpi_sep.csv)（216行）です。
 - `make_tts.py` は全角の英字（ＦＲＢ、ＩＭＦ など）を半角に直してから読み方を当てるようにしました。3本目・4本目の読み上げ用データもこれで作り直しています。
 
+## 6本目（Opus 対 Opus）：1人当たりGDPで韓国に抜かれた意味
+
+[debate6_gdp_korea.md](debate6_gdp_korea.md)：同じ Claude Opus 5.5 どうしの討論です。Opus-A（Claude 本体）が為替要因派、Opus-B（Claude のサブエージェント）が構造停滞派。全16発言・5,834字。相互ファクトチェックの結果は、Opus-A が32件中「不正確」4・「確認できない」5、Opus-B が20件中「不正確」0・「確認できない」5でした。
+
+**Opus-B の動かし方**：Codex の代わりに、Claude Code の Agent ツールでサブエージェント（モデルは opus）を発言のたびに新しく起動します。渡すのは `scripts/prompt_gachi.sh` が書くプロンプト（議題・立場・ルール・討論ログ）だけで、Opus-A のメモは渡しません。返ってきたセリフを `debate6/astra_turnN.txt` に保存し、`scripts/append_turn.sh` でログに追記します。ファクトチェックは `scripts/prompt_factcheck.sh` のプロンプトを、同じように新しいサブエージェントに渡しました。
+
+```bash
+bash scripts/prompt_gachi.sh debate6 rebuttal > <プロンプトのファイル>   # これをサブエージェントに読ませる
+bash scripts/append_turn.sh debate6 4
+bash scripts/prompt_factcheck.sh debate6 > <プロンプトのファイル>
+```
+
+- `topic.env` の `OPUS_NAME`（こちら側の話者名。既定は Opus）と `ASTRA_MODEL`（相手の話者名）で、話者を Opus-A・Opus-B に分けています。画面の最後のクレジットは `OPUS_CREDIT`・`ASTRA_CREDIT` です。声は、こちら側が Ichiro、相手が Ayumi になります。
+
+音声と動画は、Windows 機（Steam Deck）で次を実行します。
+
+```bash
+uv run --with pillow python scripts/make_video.py prepare debate6
+```
+```bash
+powershell -File scripts/tts_onecore.ps1 -Manifest build_debate6/sentences.tsv -OutDir build_debate6/audio -Rate 2.0
+```
+```bash
+uv run --with pillow python scripts/make_video.py render debate6
+```
+```bash
+uv run --with pillow python scripts/make_video.py render debate6 paged
+```
+
+- 出力は `video/gdp_korea_debate6.mp4` と `video/gdp_korea_debate6_paged.mp4` です。
+- 台本は [script6_gdp_korea.md](script6_gdp_korea.md)、読み上げ用データは [script6_gdp_korea.csv](script6_gdp_korea.csv)（207行）です。
+
 ## 別の議題で使うとき
 
 議題はスクリプトに書かず、討論フォルダの `topic.env` に書きます。スクリプトは書き換えずに、フォルダ名を引数で渡すだけです。
