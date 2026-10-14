@@ -154,7 +154,7 @@ uv run --with pillow python scripts/make_video.py render 2
 
 [debate3sol_food_tax.md](debate3sol_food_tax.md)：2027年4月から2年間、飲食料品の消費税を8%→1%に下げる高市政権の減税を、Opus（リフレ派・賛成）と gpt-6.1-sol（反リフレ派・反対）がガチ討論の形式で争いました。全16発言・5,737字。相互ファクトチェックの結果は、Opus が54件中「不正確」6・「確認できない」4、gpt-6.1-sol が15件すべて正しい、でした。
 
-**相手のモデルについて**：gpt-6-astra と対戦するつもりでしたが、クラウドに入れた Codex CLI（v0.162.1）の既定モデルが gpt-6.1-sol に変わっていて、実際の相手は gpt-6.1-sol でした。名前を実際のモデルに直して公開しています。これを受けて、スクリプトは `-m` でモデルを固定するようにしました（`topic.env` の `ASTRA_MODEL`、省略時は gpt-6-astra）。gpt-6-astra 版は別に作ります。
+**相手のモデルについて**：gpt-6-astra と対戦するつもりでしたが、クラウドに入れた Codex CLI（v0.162.1）の既定モデルが gpt-6.1-sol に変わっていて、実際の相手は gpt-6.1-sol でした。名前を実際のモデルに直して公開しています。これを受けて、スクリプトは `-m` でモデルを固定するようにしました（`topic.env` の `ASTRA_MODEL`、省略時は gpt-6-astra）。gpt-6-astra 版は下の「3本目（gpt-6-astra 版）」にあります。
 
 討論・ファクトチェック・記事・台本・CSV まではクラウドの環境（Linux）で作りました。音声と動画は Windows の音声合成を使うので、Windows 機（Steam Deck）で次を実行します。
 
@@ -184,6 +184,29 @@ uv run --with pillow python scripts/make_video.py render debate3sol paged
 | `debate3sol/factcheck_by_astra.md`、`factcheck_by_opus.md` | 相互ファクトチェック |
 | `debate3sol/telops.tsv`、`readings.tsv` | 台本のテロップ、読み方の置き換え（GDP→ジーディーピーなど） |
 | [script3sol_food_tax.md](script3sol_food_tax.md)、[script3sol_food_tax.csv](script3sol_food_tax.csv) | 動画台本と読み上げ用データ |
+
+## 3本目（gpt-6-astra 版）：食料品の消費税1%は正しいのか？
+
+[debate3_food_tax.md](debate3_food_tax.md)：sol 版と同じ議題・同じルールで、相手を gpt-6-astra に固定してやり直した討論です（`-m gpt-6-astra`。各 `debate3/astra_turn*.stdout.log` の `model:` 行で確認できます）。全16発言・5,710字。相互ファクトチェックの結果は、Opus が39件中「不正確」4、gpt-6-astra が12件中「確認できない」1（不正確0）でした。
+
+音声と動画は、Windows 機（Steam Deck）で次を実行します。
+
+```bash
+uv run --with pillow python scripts/make_video.py prepare debate3
+```
+```bash
+powershell -File scripts/tts_onecore.ps1 -Manifest build_debate3/sentences.tsv -OutDir build_debate3/audio -Rate 2.0
+```
+```bash
+uv run --with pillow python scripts/make_video.py render debate3
+```
+```bash
+uv run --with pillow python scripts/make_video.py render debate3 paged
+```
+
+- 出力は `video/food_tax_debate3.mp4` と `video/food_tax_debate3_paged.mp4` です。
+- 台本は [script3_food_tax.md](script3_food_tax.md)、読み上げ用データは [script3_food_tax.csv](script3_food_tax.csv)（210行）です。
+- フォルダの中身は sol 版（`debate3sol/`）と同じ構成です。
 
 ## 別の議題で使うとき
 

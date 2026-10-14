@@ -1,0 +1,41 @@
+| 発言 | 主張 | 判定 | 根拠 |
+|---|---|---|---|
+| 1・11 | 2025年度の国の税収は84兆2千億円。 | 正しい | 一般会計の租税・印紙収入は84兆2,226億円。[財務省・決算額](https://www.mof.go.jp/tax_policy/reference/fy2025k_budget_and_settlement.pdf) |
+| 1・15 | 税収は6年連続で過去最高。 | 正しい | 2025年度で6年連続の最高額更新と確認できる。[テレビ朝日・決算報道](https://news.tv-asahi.co.jp/news_economy/articles/000516703.html) |
+| 1 | 税収は前年度より約9兆円増え、増加額は過去最大。 | 正しい | 前年度比8兆9,905億円増。過去最大なのは増加「額」。[財務省](https://www.mof.go.jp/tax_policy/reference/fy2025k_budget_and_settlement.pdf)、[決算報道](https://news.tv-asahi.co.jp/news_economy/articles/000516703.html) |
+| 1・11・13・15 | 8月のコアCPIは1.7%。 | 正しい | 2026年8月の全国「生鮮食品を除く総合」は前年同月比1.7%上昇。[総務省統計局](https://www.stat.go.jp/data/cpi/sokuhou/tsuki/index-z.htm) |
+| 1・11 | 物価安定目標は2%で、1.7%はこれを下回る。 | 正しい | 日銀の目標は消費者物価の前年比2%。ただし、目標の達成判断は単月のコアCPIとの比較だけでは決まらない。[日銀・金融市場調節方針](https://www.boj.or.jp/mopo/mpmdeci/mpr_2026/k260918a.pdf) |
+| 1・15 | 4～6月期の個人消費は前期比横ばい。 | 正しい | 2026年4～6月期の実質民間最終消費支出は、季節調整済み前期比0.0%。実質値についての説明として正しい。[内閣府・GDP速報](https://www.esri.cao.go.jp/jp/sna/data/data_list/sokuhou/gaiyou/pdf/main_1.pdf) |
+| 1 | 若田部昌澄教授が国民会議に消費税減税の資料を提出した。 | 正しい | 2026年4月24日の社会保障国民会議実務者会議に、早稲田大学教授として資料を提出している。[若田部提出資料](https://www.cas.go.jp/jp/seisaku/kokuminkaigi/contents/20260424/02_siryou2.pdf) |
+| 1 | 若田部資料では、2025年家計調査に基づく食料消費税負担率が、所得下位2割で1.5%、上位2割で0.8%。 | 正しい | 資料の年間収入五分位表に一致。対象は酒類を除く食料で、負担率の分母は「世帯実収入」とされている。[若田部提出資料](https://www.cas.go.jp/jp/seisaku/kokuminkaigi/contents/20260424/02_siryou2.pdf) |
+| 1・9 | 2014年度は消費税率が引き上げられ、民間消費が前年度比3.1%減少した。 | 正しい | 税率は2014年4月に5%から8%へ。実質民間消費のマイナス3.1%は、2015年5月公表の速報値に一致する。増税だけの因果効果を示す数字ではない。[財務省・税率改正](https://www.mof.go.jp/tax_policy/summary/consumption/consumption_tax/law/shouhizei.htm)、[当時のGDP速報](https://www.esri.cao.go.jp/jp/sna/data/data_list/sokuhou/files/2015/qe151/pdf/gaiyou1511.pdf) |
+| 1 | 食料品の消費税を1%にする減税の規模は年5兆円程度、GDP比0.7%程度。 | 不正確 | **減税単体の政府試算は約4.3兆円。** 約5兆円という政策全体の規模と、1%への減税単体を区別する必要がある。[2026年6月22日・衆議院予算委員会答弁](https://www.shugiin.go.jp/internet/itdb_kaigiroku.nsf/html/kaigiroku/001822120260622015.htm) |
+| 1・3・15 | 食料品に限定した、2年間の時限減税である。 | 正しい | 政府が示した案は、軽減税率対象の飲食料品を2年間1%にするもの。実施済みの措置ではなく、政府の制度案として確認できる。[政府答弁](https://www.shugiin.go.jp/internet/itdb_kaigiroku.nsf/html/kaigiroku/001822120260622015.htm) |
+| 3・15 | 減税は2027年4月から始まり、2029年4月に8%へ戻す設計。 | 正しい | 公表された設計は2027年4月1日から2029年3月31日まで1%、その後8%へ戻すもの。[制度案の報道](https://www.fnn.jp/articles/FNN/1085408)、[政府答弁](https://www.shugiin.go.jp/internet/itdb_kaigiroku.nsf/html/kaigiroku/001822120260622015.htm) |
+| 3・9・15 | 所得に連動する給付は、税率を戻す2029年度に本格導入する計画。 | 正しい | 政府の公表方針と一致する。ただし、将来の実施を保証する事実ではなく、導入目標についての事実。[内閣官房・制度案](https://www.cas.go.jp/jp/seisaku/shouhizei_zeigakukoujo/index.html)、[首相記者会見](https://www.kantei.go.jp/jp/105/statement/2026/0730kaiken.html) |
+| 3 | 若田部資料では、食料消費税額は所得上位2割で年11万円、下位2割で6万7千円。 | 正しい | 表の金額は上位110,772円、下位67,363円。発言は妥当な丸め。[若田部提出資料](https://www.cas.go.jp/jp/seisaku/kokuminkaigi/contents/20260424/02_siryou2.pdf) |
+| 3 | 上位・下位の食料消費税額の差は1.6倍、年収の差は3.5倍。 | 正しい | 税額比は約1.64倍。資料の年間収入1,389万円と400万円の比は約3.47倍。[若田部提出資料](https://www.cas.go.jp/jp/seisaku/kokuminkaigi/contents/20260424/02_siryou2.pdf) |
+| 3 | IMFの2026年2月のスタッフ声明は消費税減税に慎重だった。 | 正しい | 声明は、対象を絞らない減税を避け、脆弱な家計への一時的・対象限定の支援を求めている。[IMF・対日審査スタッフ声明](https://www.imf.org/en/news/articles/2026/02/13/imf-cs-02172026-japan-staff-concluding-statement-of-the-2026-article-iv-mission) |
+| 3 | 同じIMF声明は、生活必需品への限定と時限化で財政コストを抑えられるとも述べている。 | 正しい | その趣旨の記述がある。ただし、食料品減税を推奨する記述ではない。[IMF声明](https://www.imf.org/en/news/articles/2026/02/13/imf-cs-02172026-japan-staff-concluding-statement-of-the-2026-article-iv-mission) |
+| 3 | 所得連動の給付を2027年6月以降に先行導入する計画。 | 正しい | 2027年6月以降の先行導入を目指す政府方針が報じられている。開始済みではなく計画についての確認。[共同通信配信・熊本日日新聞](https://kumanichi.com/articles/2023830) |
+| 5 | 新しい所得連動給付が主に着目するのは現役の勤労者。 | 正しい | 政府方針は中低所得の現役勤労者の負担軽減に重点を置く。[内閣官房](https://www.cas.go.jp/jp/seisaku/shouhizei_zeigakukoujo/index.html) |
+| 5 | 働いていない高齢者への対応は2030年までに結論を出す段階。 | 正しい | 中間整理では、非就労高齢者などへの支援について、2030年の年金制度改正までに結論を得る方向とされている。[中間整理の解説](https://jpjj.jp/articles/refundable-tax-credit-interim-report/) |
+| 5 | 新制度は、働いておらず年金収入だけの人には届かない。 | 正しい | 勤労所得を基礎とする新制度の対象については正しい。ただし、年金生活者が既存の現金給付も受けられないという意味ではない。[新制度の対象](https://jpjj.jp/articles/refundable-tax-credit-interim-report/)、[既存の非課税世帯等への給付](https://www5.cao.go.jp/keizai1/bukkahikazei/) |
+| 5・13 | 内閣府の整理では、2020年の特別定額給付金による追加消費は約2割、具体的には22%程度。 | 正しい | 家計簿アプリを用いた推計では22%程度。対象期間は給付の5週間前から10週間後までで、生涯を通じた消費割合ではない。[経済財政白書](https://www5.cao.go.jp/j-j/wp/wp-je25/pdf/all_01.pdf)、[元の分析](https://www5.cao.go.jp/keizai3/2023/08seisakukadai22-0.pdf) |
+| 5 | 特別定額給付金の多くは、消費されずに残った。 | 正しい | **分析した短期間内の追加消費に回らなかった**という意味では正しい。内閣府は、その後に消費へ回る可能性にも留意している。[内閣府・分析の留意点](https://www5.cao.go.jp/keizai3/2023/08seisakukadai22-0.pdf) |
+| 7・15 | 住民税非課税かどうかは所得だけで決まる。 | 不正確 | **所得に加え、扶養人数、障害者・ひとり親などの条件も関係する。** 預金残高を判定基準にしない点は正しい。[江戸川区・非課税の条件](https://www.city.edogawa.tokyo.jp/e013/kurashi/zeikin/juminzei/zei_gaiyo/hikazei.html) |
+| 7 | 江戸川区では、65歳以上・単身・年金収入のみなら、年155万円以下で住民税非課税。 | 正しい | 公的年金等控除110万円を差し引いた所得が、扶養親族なしの非課税基準45万円以下となる。[江戸川区・年金と住民税](https://www.city.edogawa.tokyo.jp/e013/kurashi/zeikin/juminzei/zei_gaiyo/jyuminzeitonenkin.html)、[非課税基準](https://www.city.edogawa.tokyo.jp/e013/kurashi/zeikin/juminzei/zei_gaiyo/hikazei.html) |
+| 7・15 | 預金が数千万円あっても、所得等の条件を満たせば非課税となり、非課税世帯向け給付の対象になり得る。 | 正しい | 住民税非課税の判定に預金残高の上限はない。給付には別途、世帯全員の課税状況など各制度の条件がある。[江戸川区](https://www.city.edogawa.tokyo.jp/e013/kurashi/zeikin/juminzei/zei_gaiyo/hikazei.html)、[給付制度](https://www5.cao.go.jp/keizai1/bukkahikazei/) |
+| 7 | 非課税の線を少し超えた現役世帯は、給付を一円も受け取れない。 | 不正確 | **非課税世帯限定の給付では対象外だが、給付全般から排除されるわけではない。** 均等割のみ課税される世帯への給付や、定額減税の調整給付がある。[厚生労働省・給付措置の通知](https://www.mhlw.go.jp/web/t_doc?dataId=00tc8189&dataType=1&pageNo=1) |
+| 7・15 | 現在の行政は資産を把握できない。 | 不正確 | **国民全員の資産を網羅的に把握する基盤は未整備だが、資産把握が一切できないわけではない。** 生活保護では預貯金等の資産調査を行う。[国民会議資料](https://www.cas.go.jp/jp/seisaku/kokuminkaigi/contents/20260415/02_siryou2.pdf)、[厚生労働省・生活保護制度](https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/hukushi_kaigo/seikatsuhogo/seikatuhogo/index.html) |
+| 9・15 | ドイツが2020年に付加価値税を下げた際、スーパーの商品価格に減税分の約7割が転嫁された。 | 正しい | 該当論文は、スーパーの価格下落から約70%の転嫁率を推計している。これは価格への転嫁率で、追加消費の割合ではない。[Fuestほか・研究論文](https://www.econstor.eu/bitstream/10419/236691/1/cesifo1_wp9149.pdf) |
+| 9 | 内閣府のマクロモデルでは、消費税率を1ポイント上げると1年目の実質GDPが0.22%下がる。 | 正しい | 該当モデルの消費税率引上げシミュレーションに一致。基準ケースからの乖離であり、食料品限定の減税の推計ではない。[内閣府・短期日本経済マクロ計量モデル](https://www.esri.cao.go.jp/jp/esri/archive/e_rnote/e_rnote080/e_rnote072.pdf) |
+| 9 | 政府の所得連動給付は、所得が増えると給付を段階的に減らす設計。 | 正しい | 制度案には、所得に応じて給付が増加・定額・逓減する仕組みが示されている。[制度案の解説](https://jpjj.jp/articles/refundable-tax-credit-interim-report/) |
+| 9 | 若田部教授は、給付付き税額控除には所得・資産を把握する基盤が前提だと指摘している。 | 正しい | 提出資料に、税務当局による国民の所得・資産把握と、基盤整備の重要性を指摘する記述がある。[若田部提出資料](https://www.cas.go.jp/jp/seisaku/kokuminkaigi/contents/20260424/02_siryou2.pdf) |
+| 11・15 | ドイツは半年後に税率を戻し、その際の値上がりは減税時の値下がりの約半分だった。 | 正しい | 減税は2020年7～12月。論文は2021年1月の税率復元に伴う価格上昇を、減税時の価格低下のおよそ半分と報告している。[研究論文](https://www.econstor.eu/bitstream/10419/236691/1/cesifo1_wp9149.pdf) |
+| 11 | 2025年度税収は補正後の見通しを3兆5千億円上回った。 | 正しい | 補正後予算額80兆6,980億円に対し、決算額は84兆2,226億円。差は3兆5,246億円。[財務省](https://www.mof.go.jp/tax_policy/reference/fy2025k_budget_and_settlement.pdf) |
+| 11 | 原田泰の研究では、名目GDPが1%伸びると税・社会保険料収入は約1.5%増えてきた。 | 正しい | 提出資料の日本の1998～2023年の回帰分析では係数が1.468。過去の集計データ上の関係として正しいが、全家計の負担が必ず同率で増えるという結果ではない。[原田提出資料](https://www.cas.go.jp/jp/seisaku/kokuminkaigi/contents/20260424/03_siryou3.pdf) |
+| 13・15 | 特別定額給付金による追加消費は、相対的な低所得世帯でも3割程度だった。 | 正しい | 等価所得下位3分の1のグループで約32%。全国民向け一律給付を所得別に分析した結果であり、困窮者限定給付そのものの実験結果ではない。[内閣府・元の分析](https://www5.cao.go.jp/keizai3/2023/08seisakukadai22-0.pdf) |
+| 13・15 | 日銀は9月、コアCPIが1.7%の状況で利上げした。 | 正しい | 2026年9月18日に政策金利を1.25%程度へ引き上げる方針を決定。同日公表の8月コアCPIは1.7%だった。[日銀](https://www.boj.or.jp/mopo/mpmdeci/mpr_2026/k260918a.pdf)、[総務省統計局](https://www.stat.go.jp/data/cpi/sokuhou/tsuki/index-z.htm) |
+| 13 | 内閣府モデルでは、消費税率1ポイントの変更で民間消費の物価が約0.5%動く。 | 正しい | 正確には、**税率を1ポイント引き上げる試算で、1年目の民間消費デフレーターが基準ケース比0.52%上昇**する。[内閣府・モデル試算](https://www.esri.cao.go.jp/jp/esri/archive/e_rnote/e_rnote080/e_rnote072.pdf) |
+| 15 | 食料品減税は、所得による対象制限を設けず買い物客に適用される。 | 正しい | 政府案は対象飲食料品の税率を下げる方式で、購入者の所得による選別はない。ただし、全額が小売価格に転嫁される保証とは別。[政府答弁](https://www.shugiin.go.jp/internet/itdb_kaigiroku.nsf/html/kaigiroku/001822120260622015.htm) |
