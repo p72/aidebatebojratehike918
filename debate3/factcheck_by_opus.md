@@ -1,0 +1,14 @@
+| 発言 | 主張 | 判定 | 根拠 |
+|---|---|---|---|
+| 2 | 同じ税率を下げれば、多く買う人ほど減税額は大きくなる。 | 正しい | 家計調査（2025年）で、食料の消費税負担額は年間収入の最も高い2割が110,772円、最も低い2割が67,363円。[若田部昌澄・国民会議実務者会議資料](https://www.cas.go.jp/jp/seisaku/kokuminkaigi/contents/20260424/02_siryou2.pdf) |
+| 2 | IMF は今年の対日審査で、対象を絞った支援の方が大きな消費反応を引き出せると指摘した。 | 確認できない | 引用先（IMF eLibrary）を開けず、この記述を確かめられなかった。2月のスタッフ声明と4月の理事会の公表文は「支援は弱い立場の家計に絞り、一時的で、財政中立に」と求めているが、消費反応の大小には触れていない。[IMF・2月](https://www.imf.org/en/news/articles/2026/02/13/imf-cs-02172026-japan-staff-concluding-statement-of-the-2026-article-iv-mission)、[IMF・4月](https://www.imf.org/en/news/articles/2026/04/02/pr-26105-japan-imf-executive-board-concludes-2026-article-iv-consult) |
+| 4 | 政府が新しい給付の本格導入で着目しているのは、中低所得の現役勤労者。 | 正しい | 対象は「税・社会保険料を総合的に見て負担が重い中・低所得の現役勤労者」。[首相官邸・2026年7月30日の会見](https://www.kantei.go.jp/jp/105/statement/2026/0730kaiken.html) |
+| 4 | IMF の同じ声明は、消費税減税を避け、弱い立場の人に支援を絞れと言っている。 | 正しい | "Avoid reducing the consumption tax (an untargeted measure that would erode fiscal space)." 支援は弱い立場の家計・企業に絞り、一時的で財政中立に、とも述べる。[IMF・2026年2月17日](https://www.imf.org/en/news/articles/2026/02/13/imf-cs-02172026-japan-staff-concluding-statement-of-the-2026-article-iv-mission) |
+| 6 | 住民税非課税世帯などへの給付は実施済みで、就労を条件にしていない。 | 正しい | 電力・ガス・食料品の価格高騰を受けた住民税非課税世帯等への給付金。申請受付は終了。対象は世帯の課税状況で決まる。[内閣府](https://www5.cao.go.jp/keizai1/bukkahikazei/) |
+| 8 | 政府は、住民税の均等割だけが課税される世帯への給付や、定額減税しきれない人への調整給付も設けた。 | 正しい | 2024年度に、新たに非課税または均等割のみ課税となった世帯への10万円給付と、定額減税で控除しきれない人への調整給付が行われた（別の制度）。[内閣官房](https://www.cas.go.jp/jp/seisaku/benefit2023/shosai/index.html)、[安城市](https://www.city.anjo.aichi.jp/shisei/koho/202508/documents/202508tokusyu1.pdf) |
+| 10 | ドイツの研究で約7割が価格に転嫁されたなら、残り約3割は値下げとして家計に届いていない。 | 正しい | "about 70% of the tax cut were passed on to consumers"。[CESifo WP 9149](https://www.econstor.eu/bitstream/10419/236691/1/cesifo1_wp9149.pdf) |
+| 10 | 内閣府の0.22%は、消費税率を上げる試算。 | 正しい | 表2-5「消費税率を1%ポイント引上げ」、1年目の実質GDPは-0.22%。[ESRI Research Note No.72](https://www.esri.cao.go.jp/jp/esri/archive/e_rnote/e_rnote080/e_rnote072.pdf) |
+| 12 | ドイツの論文は、税率を戻した後の観測が3月まで、つまり3か月。 | 正しい | 「This trend persists until the end of our observation period in March 2021」。税率を戻したのは2021年1月1日。[CESifo WP 9149](https://www.econstor.eu/bitstream/10419/236691/1/cesifo1_wp9149.pdf) |
+| 14 | 日銀は物価判断で、賃金や需給などから基調を見ている。 | 正しい | 基調的な物価上昇率は、需給ギャップ、予想物価上昇率、賃金上昇率などを総合的に見て評価する。[三井住友DSアセットマネジメント](https://www.smd-am.co.jp/market/ichikawa/2025/08/irepo250801/)、[日本銀行・総裁会見（2025年8月1日）](https://www.boj.or.jp/about/press/kaiken_2025/kk250801a.htm) |
+| 14・16 | 対象を絞ると消費に回る割合は高い（平均22%に対し、低所得世帯は約3割）。 | 正しい | 特別定額給付金は平均で給付額の22%程度、相対的に低所得の世帯で3割程度が消費支出に回った。[内閣府『経済財政白書』2025年版](https://www5.cao.go.jp/j-j/wp/wp-je25/pdf/all_01.pdf) |
+| 16 | 給付の3割は追加消費の割合、ドイツの7割は値下げへの転嫁率で、性質が違う。 | 正しい | 白書の数字は「消費支出に回った」割合、ドイツの数字は価格への転嫁率。[内閣府](https://www5.cao.go.jp/j-j/wp/wp-je25/pdf/all_01.pdf)、[CESifo WP 9149](https://www.econstor.eu/bitstream/10419/236691/1/cesifo1_wp9149.pdf) |
