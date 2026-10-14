@@ -32,8 +32,8 @@ out = (head.replace("{{CHARS}}", f"{spoken:,}")
        + "\n".join(body)
        + "\n---\n\n## 相互ファクトチェック\n\n"
        + "討論のあと、相手の発言を検証しました。判定は検証した側のものをそのまま載せています。\n\n"
-       + f"### Opus の発言を {T['ASTRA_MODEL']} が検証\n\n" + fc_astra + "\n\n"
-       + f"### {T['ASTRA_MODEL']} の発言を Opus が検証\n\n" + fc_opus + "\n\n"
+       + f"### {T['OPUS_NAME']} の発言を {T['ASTRA_MODEL']} が検証\n\n" + fc_astra + "\n\n"
+       + f"### {T['ASTRA_MODEL']} の発言を {T['OPUS_NAME']} が検証\n\n" + fc_opus + "\n\n"
        + tail.replace("{{CHARS}}", f"{spoken:,}"))
 (ROOT / T["ARTICLE"]).write_text(out, encoding="utf-8")
 print(f"{len(turns)} turns, {spoken} chars -> {T['ARTICLE']}")

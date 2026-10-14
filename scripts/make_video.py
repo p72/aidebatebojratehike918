@@ -28,7 +28,7 @@ WHITE, GRAY, DIM = (255, 255, 255), (150, 150, 150), (90, 90, 90)
 
 
 # 話者ごとの声（名前は tts_onecore.ps1 で使う）。画面の立場の表示は設定の tags から
-VOICES = {"ナレーター": "Haruka", "Opus": "Ichiro"}   # それ以外（相手のモデル）は Ayumi
+VOICES = {"ナレーター": "Haruka"}   # こちら側（C["me"]）は Ichiro、相手は Ayumi
 
 
 def speaker_label(speaker):
@@ -72,7 +72,9 @@ def from_topic(dir_name, build=None):
                 name=T["VIDEO"], scenes=gachi_scenes(len(read_log(dir_name))),
                 title_sec=2.5, card_sec=1.0, end_sec=4.0, gap_sentence=0.08, gap_speaker=0.3,
                 title=(T["TITLE_KICKER"], T["TITLE"].split("｜")), end=T["END"].split("｜"),
-                tags={"Opus": T["OPUS_TAG"], T["ASTRA_MODEL"]: T["ASTRA_TAG"]}, rival=T["ASTRA_MODEL"])
+                tags={T["OPUS_NAME"]: T["OPUS_TAG"], T["ASTRA_MODEL"]: T["ASTRA_TAG"]},
+                me=T["OPUS_NAME"], rival=T["ASTRA_MODEL"],
+                credit=f"{T['OPUS_NAME']}：{T['OPUS_CREDIT']} ／ {T['ASTRA_MODEL']}：{T['ASTRA_CREDIT']}")
 
 
 CONFIGS = {
@@ -81,7 +83,8 @@ CONFIGS = {
               gap_sentence=0.15, gap_speaker=0.5,
               title=("AI vs AI 討論", ["9月18日の日銀利上げは", "正しかったのか？"]),
               end=["答え合わせは", "10月29〜30日の日銀会合"],
-              tags={"Opus": "反対", "gpt-6-astra": "賛成"}, rival="gpt-6-astra"),
+              tags={"Opus": "反対", "gpt-6-astra": "賛成"}, me="Opus", rival="gpt-6-astra",
+              credit="Opus：Claude Opus 5.5 ／ gpt-6-astra：Codex CLI"),
     "2": from_topic("debate2", build="build2"),
 }
 # ガチ版のページ表示：音声は 2 と同じもの（build2/audio）を使い、画面だけ変える
@@ -153,7 +156,7 @@ def prepare():
             continue
         speaker, text = line.split("\t", 1)
         for s in split_sentences(text):
-            rows.append(f"{len(rows):03d}\t{VOICES.get(speaker, 'Ayumi')}\t{s}")
+            rows.append(f"{len(rows):03d}\t{VOICES.get(speaker, 'Ichiro' if speaker == C['me'] else 'Ayumi')}\t{s}")
     SENTENCES.write_text("\n".join(rows) + "\n", encoding="utf-8")
     print(f"{len(rows)} sentences -> {SENTENCES}")
 
@@ -199,7 +202,8 @@ def frame_title(path):
     centered(d, title, font(FONT_B, 96), 520, WHITE)
     tags = C["tags"]
     rival = C["rival"]
-    centered(d, [f"Opus（{tags['Opus']}）　vs　{rival}（{tags[rival]}）"], font(FONT_R, 52), 800, WHITE)
+    me = C["me"]
+    centered(d, [f"{me}（{tags[me]}）　vs　{rival}（{tags[rival]}）"], font(FONT_R, 52), 800, WHITE)
     img.save(path)
 
 
@@ -307,7 +311,7 @@ def frame_page(path, scene, speaker_label, sentences, ids, active, page_no, n_pa
 def frame_end(path):
     img, d = new_canvas()
     centered(d, C["end"], font(FONT_B, 84 if len(C["end"]) <= 2 else 72), 400, WHITE)
-    centered(d, [f"Opus：Claude Opus 5.5 ／ {C['rival']}：Codex CLI",
+    centered(d, [C["credit"],
                  "音声：Windows 音声合成（Haruka・Ichiro・Ayumi）"], font(FONT_R, 40), 800, GRAY)
     img.save(path)
 

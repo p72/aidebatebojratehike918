@@ -74,7 +74,7 @@ def main(dir_name):
         "| 項目 | 内容 |", "|---|---|",
         "",   # 尺（最後に入れる）
         f"| 文字数 | {total_chars:,}字（ナレーション{len(open_) + len(close)}字＋討論{sum(len(x) for _, x in turns):,}字） |",
-        f"| 話者 | ナレーター／Opus（{T['OPUS_ROLE']}）／{T['ASTRA_MODEL']}（{T['ASTRA_ROLE']}） |",
+        f"| 話者 | ナレーター／{T['OPUS_NAME']}（{T['OPUS_ROLE']}）／{T['ASTRA_MODEL']}（{T['ASTRA_ROLE']}） |",
         f"| 読み上げ用データ | [{script}.csv]({script}.csv)（`話者,セリフ`、1文1行） |",
         "",
         "**間（ま）**：話者交代 0.3秒、ラウンドの切り替え 1.0秒＋ラウンド名のテロップ（読み上げない）。早口なので1本目より詰めています。\n",

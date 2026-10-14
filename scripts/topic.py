@@ -21,6 +21,11 @@ def load(dir_name):
     env["DIR"] = d
     # 相手のモデル名（話者名にも使う）と、その読み
     env.setdefault("ASTRA_MODEL", "gpt-6-astra")
+    # こちら側（Claude）の話者名。Opus どうしの討論では Opus-A などに変える
+    env.setdefault("OPUS_NAME", "Opus")
+    # 最後の画面に出す、それぞれの作り方
+    env.setdefault("OPUS_CREDIT", "Claude Opus 5.5")
+    env.setdefault("ASTRA_CREDIT", "Codex CLI")
     env.setdefault("ASTRA_READING", "ジーピーティーシックス アストラ")
     env["TELOPS"] = read_tsv(d / "telops.tsv", int)
     env["READINGS"] = list(read_tsv(d / "readings.tsv").items())
