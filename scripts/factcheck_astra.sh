@@ -11,7 +11,7 @@ model="${ASTRA_MODEL:-gpt-6-astra}"
 
 {
 cat <<EOF
-あなたは「gpt-6-astra」というAIです。さきほど Claude（Opus）と、${SUBJECT}について討論しました。
+あなたは「${model}」というAIです。さきほど Claude（Opus）と、${SUBJECT}について討論しました。
 これから、相手の Opus の発言をファクトチェックしてください。
 
 ルール：

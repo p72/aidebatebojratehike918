@@ -19,6 +19,9 @@ def load(dir_name):
         key, value = line.split("=", 1)
         env[key] = shlex.split(value)[0] if value else ""
     env["DIR"] = d
+    # 相手のモデル名（話者名にも使う）と、その読み
+    env.setdefault("ASTRA_MODEL", "gpt-6-astra")
+    env.setdefault("ASTRA_READING", "ジーピーティーシックス アストラ")
     env["TELOPS"] = read_tsv(d / "telops.tsv", int)
     env["READINGS"] = list(read_tsv(d / "readings.tsv").items())
     return env

@@ -105,7 +105,7 @@ uv run --with pillow python scripts/make_video.py render
 | `debate2/article_head.md`、`article_tail.md` | 記事の冒頭と末尾 |
 | `scripts/astra_gachi.sh` | gpt-6-astra の発言を作る（Web 検索あり、推論の強さ high） |
 | `scripts/factcheck_astra.sh` | gpt-6-astra に Opus の発言を検証させる |
-| `scripts/build_article2.py` | 討論ログとファクトチェックから記事を組み立てる |
+| `scripts/build_article.py` | 討論ログとファクトチェックから記事を組み立てる |
 
 ```bash
 bash scripts/astra_gachi.sh debate2 1 opening
@@ -114,7 +114,7 @@ bash scripts/astra_gachi.sh debate2 1 opening
 bash scripts/factcheck_astra.sh debate2
 ```
 ```bash
-python scripts/build_article2.py
+python scripts/build_article.py debate2
 ```
 
 **台本と動画（ガチ版）**
@@ -126,11 +126,11 @@ python scripts/build_article2.py
 | [video/boj_debate2_0918.mp4](video/boj_debate2_0918.mp4) | 動画（10分6秒、超早口＝話す速さ2.0倍） |
 | `video/boj_debate2_0918.srt` | 動画と同じタイミングの字幕 |
 | [video/boj_debate2_0918_paged.mp4](video/boj_debate2_0918_paged.mp4) | 別バージョン。1画面に3〜10文（平均約6文）をまとめ、読み上げ中の文だけ黄色、ほかは白。音声と長さは同じ |
-| `debate2/tts_lines.tsv` | 読み上げ用のセリフ（`make_tts2.py` が討論ログから作る） |
-| `scripts/make_tts2.py` | 読み上げ用への変換と台本の作成 |
+| `debate2/tts_lines.tsv` | 読み上げ用のセリフ（`make_tts.py` が討論ログから作る） |
+| `scripts/make_tts.py` | 読み上げ用への変換と台本の作成 |
 
 ```bash
-python scripts/make_tts2.py
+python scripts/make_tts.py debate2
 ```
 ```bash
 uv run --with pillow python scripts/make_video.py prepare 2
@@ -142,7 +142,7 @@ powershell -File scripts/tts_onecore.ps1 -Manifest build2/sentences.tsv -OutDir 
 uv run --with pillow python scripts/make_video.py render 2
 ```
 
-- `make_tts2.py` は意味を変えずに表記だけ直します。リンクは表示テキストだけ残し、全角・漢数字の小数（１・７％、〇・二五）は 1.7パーセント・0.25 に、カギカッコは読点にします。
+- `make_tts.py` は意味を変えずに表記だけ直します。リンクは表示テキストだけ残し、全角・漢数字の小数（１・７％、〇・二五）は 1.7パーセント・0.25 に、カギカッコは読点にします。
 - 動画の画面には、読み上げ用ではなく討論ログの表記（記事と同じ）をそのまま出します。
 - `make_video.py` の最後の引数で、1本目（`1`）とガチ版（`2`）を切り替えます。
 - `render 1p` / `render 2p` で、1本目・ガチ版のページ表示の動画を作ります。数字や英単語（1995、1.25%、Claude など）の途中では改行しません。音声はガチ版と同じもの（`build2/audio`）を使うので、合成し直す必要はありません。1発言を7行に収まる単位でページに分け、最後のページが短くなりすぎないよう、文の数をならしています。
@@ -150,10 +150,66 @@ uv run --with pillow python scripts/make_video.py render 2
 - `astra_gachi.sh` は `codex --search exec` で Web 検索をオンにし、`-c model_reasoning_effort=high` で推論の強さを指定します。強さは環境変数 `ASTRA_EFFORT` で変えられます。
 - 1発言に1〜2分、ファクトチェックに5〜10分ほどかかります。
 
+## 3本目（sol 版）：食料品の消費税1%は正しいのか？（リフレ派 vs 反リフレ派）
+
+[debate3sol_food_tax.md](debate3sol_food_tax.md)：2027年4月から2年間、飲食料品の消費税を8%→1%に下げる高市政権の減税を、Opus（リフレ派・賛成）と gpt-6.1-sol（反リフレ派・反対）がガチ討論の形式で争いました。全16発言・5,737字。相互ファクトチェックの結果は、Opus が54件中「不正確」6・「確認できない」4、gpt-6.1-sol が15件すべて正しい、でした。
+
+**相手のモデルについて**：gpt-6-astra と対戦するつもりでしたが、クラウドに入れた Codex CLI（v0.162.1）の既定モデルが gpt-6.1-sol に変わっていて、実際の相手は gpt-6.1-sol でした。名前を実際のモデルに直して公開しています。これを受けて、スクリプトは `-m` でモデルを固定するようにしました（`topic.env` の `ASTRA_MODEL`、省略時は gpt-6-astra）。gpt-6-astra 版は別に作ります。
+
+討論・ファクトチェック・記事・台本・CSV まではクラウドの環境（Linux）で作りました。音声と動画は Windows の音声合成を使うので、Windows 機（Steam Deck）で次を実行します。
+
+```bash
+uv run --with pillow python scripts/make_video.py prepare debate3sol
+```
+```bash
+powershell -File scripts/tts_onecore.ps1 -Manifest build_debate3sol/sentences.tsv -OutDir build_debate3sol/audio -Rate 2.0
+```
+```bash
+uv run --with pillow python scripts/make_video.py render debate3sol
+```
+```bash
+uv run --with pillow python scripts/make_video.py render debate3sol paged
+```
+
+- 出力は `video/food_tax_debate3sol.mp4`（1画面1文）と `video/food_tax_debate3sol_paged.mp4`（ページ表示、読み上げ中の文が黄色）です。ページ表示版は同じ音声（`build_debate3sol/audio`）を使います。
+- 速さ2.0倍で約10〜11分の見込みです（ガチ版2本目と同じ設定）。
+- CSV は `script3sol_food_tax.csv`（224行）。`build_csv.ps1` と同じ形式（BOM 付き UTF-8、1文1行）で作ってあります。
+
+| パス | 内容 |
+|---|---|
+| `debate3sol/topic.env` | 議題・立場・タイトル・ナレーションなどの設定 |
+| `debate3sol/log.md` | 討論ログ |
+| `debate3sol/astra_turn*.txt` | gpt-6-astra の生の出力 |
+| `debate3sol/opus_notes.md` | Opus の作戦メモと出典（gpt-6-astra には渡していない） |
+| `debate3sol/factcheck_by_astra.md`、`factcheck_by_opus.md` | 相互ファクトチェック |
+| `debate3sol/telops.tsv`、`readings.tsv` | 台本のテロップ、読み方の置き換え（GDP→ジーディーピーなど） |
+| [script3sol_food_tax.md](script3sol_food_tax.md)、[script3sol_food_tax.csv](script3sol_food_tax.csv) | 動画台本と読み上げ用データ |
+
 ## 別の議題で使うとき
 
-- `scripts/astra.sh` の議題と立場（「議題：…」「あなたの立場：…」の行）を書き換えます。
-- `debate/` の中身を新しい議題のものに入れ替えます。前の分を残したい場合は、フォルダを分けて `astra.sh` の第1引数で指定します。
+議題はスクリプトに書かず、討論フォルダの `topic.env` に書きます。スクリプトは書き換えずに、フォルダ名を引数で渡すだけです。
+
+1. 新しいフォルダ（例：`debate4/`）を作り、`debate3sol/topic.env` をまねて `topic.env` を書きます。
+   - `MOTION`（gpt-6-astra に渡す議題）、`SUBJECT`（ファクトチェックで使う短い言い方）
+   - `ASTRA_SIDE`・`OPUS_SIDE`（立場）、`*_ROLE`（台本の表記）、`*_TAG`（画面の表記）
+   - `ASTRA_MODEL`・`ASTRA_READING`（相手のモデル名と読み。省略時は gpt-6-astra。Codex に `-m` で渡し、話者名にも使う）
+   - `LENGTH`（相手の1発言の長さ）
+   - `ARTICLE`・`SCRIPT`・`VIDEO`（出力するファイルの名前）
+   - `TITLE_KICKER`・`TITLE`・`END`（動画のタイトル画面と最後の画面。「｜」で改行）
+   - `TELOP_OPEN`・`TELOP_END`・`NARRATION_OPEN`・`NARRATION_CLOSE`（台本。ナレーションは読み上げ用の表記で書く）
+   - 1行に `KEY='値'` の形で書きます。bash からは `source`、Python からは `scripts/topic.py` で読みます。
+2. 必要なら、同じフォルダに `telops.tsv`（`発言の番号<TAB>テロップ`）と `readings.tsv`（`表記<TAB>読み`。例：GDP→ジーディーピー）を置きます。
+3. あとはガチ版と同じ手順で、フォルダ名を渡します。発言の数を変えても、場面の区切り（冒頭の主張・第Nラウンド・最終弁論）は自動で決まります。
+
+```bash
+bash scripts/astra_gachi.sh debate4 2 opening   # gpt-6-astra の発言を作る
+bash scripts/append_turn.sh debate4 2           # その発言を log.md に1行で追記する
+bash scripts/factcheck_astra.sh debate4
+python scripts/build_article.py debate4
+python scripts/make_tts.py debate4
+```
+
+1本目と同じファクトシートありの形式なら、`scripts/astra.sh` も同じく `topic.env`（`MOTION`・`ASTRA_SIDE`・`OPUS_SIDE`・`LENGTH`）を読みます。
 
 ## 注意
 

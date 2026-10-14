@@ -18,7 +18,7 @@ esac
 
 {
 cat <<EOF
-あなたは「gpt-6-astra」というAIです。Claude（Opus）とAI同士の本気の討論をしています。
+あなたは「${model}」というAIです。Claude（Opus）とAI同士の本気の討論をしています。
 議題：${MOTION}
 あなたの立場：${ASTRA_SIDE}。Opusは${OPUS_SIDE}の立場です。
 

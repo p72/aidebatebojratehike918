@@ -19,7 +19,7 @@ KANJI = {"〇": "0", "一": "1", "二": "2", "三": "3", "四": "4",
          "五": "5", "六": "6", "七": "7", "八": "8", "九": "9"}
 
 # どの議題でも使う読み方（長いものから順に置き換える）
-READINGS = [("gpt-6-astra", "ジーピーティーシックス アストラ"), ("CPI", "シーピーアイ"),
+READINGS = [("CPI", "シーピーアイ"),
             ("ＣＰＩ", "シーピーアイ"), ("%", "パーセント"), ("上振れ", "うわぶれ"),
             ("〜", "から")]
 
@@ -49,7 +49,8 @@ def to_spoken(text, extra=()):
 def main(dir_name):
     T = load(dir_name)
     D = T["DIR"]
-    turns = [(s, to_spoken(t, T["READINGS"])) for s, t in read_log(dir_name)]
+    extra = [(T["ASTRA_MODEL"], T["ASTRA_READING"])] + T["READINGS"]
+    turns = [(s, to_spoken(t, extra)) for s, t in read_log(dir_name)]
     scenes = scene_names(len(turns))
     open_, close = T["NARRATION_OPEN"], T["NARRATION_CLOSE"]
 
@@ -72,14 +73,14 @@ def main(dir_name):
         "| 項目 | 内容 |", "|---|---|",
         "",   # 尺（最後に入れる）
         f"| 文字数 | {total_chars:,}字（ナレーション{len(open_) + len(close)}字＋討論{sum(len(x) for _, x in turns):,}字） |",
-        f"| 話者 | ナレーター／Opus（{T['OPUS_ROLE']}）／gpt-6-astra（{T['ASTRA_ROLE']}） |",
+        f"| 話者 | ナレーター／Opus（{T['OPUS_ROLE']}）／{T['ASTRA_MODEL']}（{T['ASTRA_ROLE']}） |",
         f"| 読み上げ用データ | [{script}.csv]({script}.csv)（`話者,セリフ`、1文1行） |",
         "",
         "**間（ま）**：話者交代 0.3秒、ラウンドの切り替え 1.0秒＋ラウンド名のテロップ（読み上げない）。早口なので1本目より詰めています。\n",
         "**読み方の書き換え**：意味は変えず、表記だけ直しています。",
         "Markdown のリンクは表示テキストだけ残す、全角・漢数字の小数（１・７％、〇・二五）→ 1.7パーセント・0.25、",
-        "CPI→シーピーアイ、%→パーセント、上振れ→うわぶれ、gpt-6-astra→ジーピーティーシックス アストラ、4〜6月→4月から6月、"
-        + "".join(f"{a}→{b}、" for a, b in T["READINGS"])
+        "CPI→シーピーアイ、%→パーセント、上振れ→うわぶれ、4〜6月→4月から6月、"
+        + "".join(f"{a}→{b}、" for a, b in extra)
         + "カギカッコは読点に置き換え（句読点の隣では外す）。\n",
         "---\n",
         f"## オープニング（0:00〜{stamp(dur(open_))}）\n",
