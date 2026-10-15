@@ -49,3 +49,4 @@
 | 12 | ab60ddd0179e684fe | opus | 4 | 70,160 |
 | 14 | a4aac8daa3cfaa4c9 | opus | 4 | 70,607 |
 | 16 | ab770c21bfbfdf3ae | opus | 1 | 67,333 |
+| ファクトチェック | a49504e96ea4695ba | opus | 24 | 90,612 |

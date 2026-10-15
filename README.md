@@ -285,6 +285,28 @@ uv run --with pillow python scripts/make_video.py render debate6 paged
 - 出力は `video/gdp_korea_debate6.mp4` と `video/gdp_korea_debate6_paged.mp4` です。
 - 台本は [script6_gdp_korea.md](script6_gdp_korea.md)、読み上げ用データは [script6_gdp_korea.csv](script6_gdp_korea.csv)（207行）です。
 
+## 7本目（Opus 対 Opus）：消費税減税は、値札にどこまで届くか
+
+[debate7_pass_through.md](debate7_pass_through.md)：2027年4月からの食料品の消費税減税（8%→1%）の価格転嫁をめぐる討論です。Opus-A（本体）が高い転嫁派（7〜8割以上、CPI 1ポイント超）、Opus-B（サブエージェント）が低い転嫁派（IMF の3割、CPI 0.5ポイント前後）。全16発言・5,820字。相互ファクトチェックの結果は、Opus-A が27件中「確認できない」5、Opus-B が18件中「確認できない」3で、どちらも「不正確」はゼロでした。Opus-A はビールの酒税減税時の CPI を e-Stat API から取りました。
+
+音声と動画は、Windows 機（Steam Deck）で次を実行します。
+
+```bash
+uv run --with pillow python scripts/make_video.py prepare debate7
+```
+```bash
+powershell -File scripts/tts_onecore.ps1 -Manifest build_debate7/sentences.tsv -OutDir build_debate7/audio -Rate 2.0
+```
+```bash
+uv run --with pillow python scripts/make_video.py render debate7
+```
+```bash
+uv run --with pillow python scripts/make_video.py render debate7 paged
+```
+
+- 出力は `video/pass_through_debate7.mp4` と `video/pass_through_debate7_paged.mp4` です。
+- 台本は [script7_pass_through.md](script7_pass_through.md)、読み上げ用データは [script7_pass_through.csv](script7_pass_through.csv)です。
+
 ## 別の議題で使うとき
 
 議題はスクリプトに書かず、討論フォルダの `topic.env` に書きます。スクリプトは書き換えずに、フォルダ名を引数で渡すだけです。
