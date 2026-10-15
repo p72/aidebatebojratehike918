@@ -22,3 +22,8 @@
 ## 発言3で使った事実
 - Fuest ほか：減税のなかったオーストリアを比較対象にした推計。2020年7月1日〜12月31日の時限措置。競合商品の多い商品群ほど転嫁率が高く、自社ブランド（垂直統合）はメーカー品より転嫁率が高い。（[CESifo WP 9149](https://www.econstor.eu/bitstream/10419/236691/1/cesifo1_wp9149.pdf)、[ifo](https://ifo.de/en/press-release/2020-11-09/supermarkets-reduction-vat)）
 - ifo の初期の論考（約6万点の Rewe の商品）では平均2%の値下がりで「完全な転嫁」と報告。（[ifo](https://ifo.de/en/publications/2020/article-journal/price-effects-reduction-value-added-tax-german-supermarkets)）
+| 4 | a5af1eaa28186208c | opus | 12 | 78,579 |
+
+## 発言5で使った事実
+- IMF WP/15/214：引き上げと引き下げで転嫁に有意な差はない。
+- 2014年の消費税率引き上げ：国内企業物価やサービス価格はおおむね全額転嫁（伊藤忠経済研究所）。消費者向けは4月の上乗せと5月の巻き戻しが混在。（[伊藤忠経済研究所](https://www.itochu.co.jp/ja/files/20140605_2014-074_J_Inflation.pdf)、[大和総研](https://www.dir.co.jp/report/research/economics/japan/20140425_008477.html)）
