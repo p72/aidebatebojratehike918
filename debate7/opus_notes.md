@@ -47,3 +47,5 @@
 - ビールの酒税は2020年10月に350mlあたり77円→70円（7円減）、2023年10月に70円→63.35円。（[サントリー](https://www.suntory.co.jp/news/article/13716.html)、[キリン](https://www.kirinholdings.com/jp/newsroom/release/2020/0526_02.pdf)）
 - 取得URLの例：`https://api.e-stat.go.jp/rest/3.0/app/json/getStatsData?statsDataId=0003427113&cdCat01=2021&cdArea=00000&cdTab=1`（appId は省略）
 | 12 | ab60ddd0179e684fe | opus | 4 | 70,160 |
+| 14 | a4aac8daa3cfaa4c9 | opus | 4 | 70,607 |
+| 16 | ab770c21bfbfdf3ae | opus | 1 | 67,333 |
