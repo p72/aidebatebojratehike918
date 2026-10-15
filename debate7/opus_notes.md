@@ -1,0 +1,24 @@
+# Opus-A の作戦メモと出典（Opus-B には渡していない）
+
+## 立場
+食料品の消費税減税（8%→1%）は、7〜8割以上が値札に届き、CPIを1ポイント超押し下げる（高い転嫁派）。
+
+## 発言1で使った事実
+- IMF WP/15/214（Benedek, De Mooij, Keen, Wingender, "Estimating VAT Pass Through"）：ユーロ圏17か国、1999〜2013年の月次データ。標準税率の変更の最終的な転嫁はほぼ100%、軽減税率の変更は約30%、区分の変更はほぼゼロ。引き上げと引き下げで有意な差はない。（[IMF](https://www.imf.org/external/pubs/cat/longres.aspx?sk=43322.0)、[CESifo WP 5531](https://www.cesifo.org/DocDL/cesifo1_wp5531.pdf)）
+- ドイツ2020年7〜12月：標準税率19%→16%、軽減税率7%→5%。約13万点のスーパーの価格で、減税分の約70%が転嫁。（[CESifo WP 9149](https://www.econstor.eu/bitstream/10419/236691/1/cesifo1_wp9149.pdf)）
+- 総額表示（税込価格の表示）は2021年4月から義務化。
+- 1.01÷1.08－1＝－6.48%（完全転嫁なら食料品価格は約6.5%下がる、計算）。
+
+## 先方が使いそうな論点
+- 小売の端数価格、値上げラッシュで相殺（第一生命経済研究所「値下がり幅は▲7%より小さい可能性」）
+- 外食は対象外
+- 増税は転嫁されやすく、減税は転嫁されにくい（NBER の理容業の研究）
+
+## Opus-B の実行記録
+| 発言 | サブエージェント | モデル指定 | ツール呼び出し | トークン |
+|---|---|---|---|---|
+| 2 | a277f9443c659cfbd | opus | 11 | 72,887 |
+
+## 発言3で使った事実
+- Fuest ほか：減税のなかったオーストリアを比較対象にした推計。2020年7月1日〜12月31日の時限措置。競合商品の多い商品群ほど転嫁率が高く、自社ブランド（垂直統合）はメーカー品より転嫁率が高い。（[CESifo WP 9149](https://www.econstor.eu/bitstream/10419/236691/1/cesifo1_wp9149.pdf)、[ifo](https://ifo.de/en/press-release/2020-11-09/supermarkets-reduction-vat)）
+- ifo の初期の論考（約6万点の Rewe の商品）では平均2%の値下がりで「完全な転嫁」と報告。（[ifo](https://ifo.de/en/publications/2020/article-journal/price-effects-reduction-value-added-tax-german-supermarkets)）
