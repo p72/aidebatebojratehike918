@@ -307,6 +307,28 @@ uv run --with pillow python scripts/make_video.py render debate7 paged
 - 出力は `video/pass_through_debate7.mp4` と `video/pass_through_debate7_paged.mp4` です。
 - 台本は [script7_pass_through.md](script7_pass_through.md)、読み上げ用データは [script7_pass_through.csv](script7_pass_through.csv)です。
 
+## 8本目（Opus 対 Opus）：原油高は日本経済にとってデフレ圧力だったのか
+
+[debate8_oil_deflation.md](debate8_oil_deflation.md)：2008年・2022年・2026年の原油高をもとに、原油高が日本にとってデフレ圧力だったのかを争った討論です。Opus-A（本体）がデフレ圧力派（交易条件の悪化で所得が流出し、需要を冷やす）、Opus-B（サブエージェント）がインフレ圧力派（物価を押し上げ、賃金や価格設定にも波及した）。全16発言・5,709字。相互ファクトチェックの結果は、Opus-A が26件中「確認できない」1、Opus-B が25件中「不正確」1・「確認できない」3でした。不正確の1件（「原油が100ドルを超えたのは9月」）は、議題の書き方にも原因があり、記事に注記しています。Opus-A は WTI とドル円を FRED API から取りました。
+
+音声と動画は、Windows 機（Steam Deck）で次を実行します。
+
+```bash
+uv run --with pillow python scripts/make_video.py prepare debate8
+```
+```bash
+powershell -File scripts/tts_onecore.ps1 -Manifest build_debate8/sentences.tsv -OutDir build_debate8/audio -Rate 2.0
+```
+```bash
+uv run --with pillow python scripts/make_video.py render debate8
+```
+```bash
+uv run --with pillow python scripts/make_video.py render debate8 paged
+```
+
+- 出力は `video/oil_deflation_debate8.mp4` と `video/oil_deflation_debate8_paged.mp4` です。
+- 台本は [script8_oil_deflation.md](script8_oil_deflation.md)、読み上げ用データは [script8_oil_deflation.csv](script8_oil_deflation.csv)です。
+
 ## 別の議題で使うとき
 
 議題はスクリプトに書かず、討論フォルダの `topic.env` に書きます。スクリプトは書き換えずに、フォルダ名を引数で渡すだけです。
