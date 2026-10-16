@@ -39,3 +39,8 @@
 - WTI は2008年7月に140ドル台（FRED: DCOILWTICO）。
 - 生鮮食品を除く CPI は2009年に-1.3%（総務省）。
 - 日銀は2026年6月に政策金利を1.00%へ引き上げ、7月会合は据え置き。7月展望レポートのコア CPI 見通し（2026年度）は2.8%→2.5%に下方修正。（[りそな銀行](https://www.resonabank.co.jp/kojin/market/keizaiflash/pdf/20260731_4.pdf)、[第一生命経済研究所](https://www.dlri.co.jp/files/macro/634581.pdf)）
+| 8 | a8009cc6882d60fdf | opus | 6 | 69,374 |
+
+## 発言9で使った事実
+- 2026年9月の東京都区部 CPI（中旬速報）：生鮮食品を除く総合 2.7%（8か月ぶり2%台）、生鮮食品及びエネルギーを除く総合 3.0%。水道料は都の基本料金無償化の終了で65.6%上昇、交通は JR 東日本の運賃値上げで4.8%上昇。（[総務省](https://www.soumu.go.jp/menu_news/s-news/01toukei08_01000353.html)、[さきがけ／共同](https://www.sakigake.jp/news/article/20261002CO0062/)、[DX マガジン](https://dxmagazine.jp/?p=224777)）
+- 平成20年度 年次経済財政報告（2008年7月）：回復は足踏みで、アメリカ経済の減速や原油価格等の高騰を景気の下振れリスクとして指摘。（[内閣府](https://www5.cao.go.jp/j-j/wp/wp-je08/08b00010.html)）
