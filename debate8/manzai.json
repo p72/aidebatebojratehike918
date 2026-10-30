@@ -1,0 +1,23 @@
+{
+  "video": "boj_oct_manzai8",
+  "speed": 1.35,
+  "title_kicker": "ずんだもん × つむぎ　3分討論",
+  "title": ["10月の日銀会合", "据え置きは正解だったのだ？"],
+  "header": "10月日銀会合（10/29〜30）｜政策金利1.25%据え置き・8対1",
+  "speakers": {
+    "ずんだもん": {"style": 3, "color": [139, 209, 75], "tag": "利上げすべきだった派", "credit": "Claude Opus 5.5（Opus-A）"},
+    "つむぎ": {"style": 8, "color": [247, 197, 49], "tag": "据え置きで正解派", "credit": "Claude Opus 5.5（Opus-B・サブエージェント）"}
+  },
+  "turns": [
+    {"scene": "その1　テイラールール", "chart": "taylor.png"},
+    {"scene": "その1　テイラールール", "chart": "taylor.png"},
+    {"scene": "その2　企業向けサービス価格", "chart": "sppi.jpg"},
+    {"scene": "その2　企業向けサービス価格", "chart": "sppi.jpg"},
+    {"scene": "その3　外食の値段", "chart": "gaishoku.png", "crop": [0, 0, 1430, 760]},
+    {"scene": "その3　外食の値段", "chart": "gaishoku.png", "crop": [0, 0, 1430, 760]},
+    {"scene": "まとめ", "chart": "taylor.png"},
+    {"scene": "まとめ", "chart": "taylor.png"}
+  ],
+  "end": ["次の会合は12月17〜18日", "答え合わせは、またこんど"],
+  "notes": "グラフ：日本銀行・総務省・厚生労働省のデータから作成"
+}

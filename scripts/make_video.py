@@ -7,7 +7,11 @@
 <対象> は 1（1本目・ファクトシートあり）、2（ガチ討論版）、1p・2p（それぞれのページ表示版）、
 または topic.env のある討論フォルダ（debate3 など）。フォルダのときは、途中のファイルは build_<フォルダ>/ にでき、
 最後に paged を付けるとページ表示版（音声は同じものを使う）を作る。
+
+環境変数 TTS=voicevox を付けると VOICEVOX 版になる。途中のファイルは build…_vv/ に分け、
+動画の名前の末尾に _voicevox を付ける（Windows 音声版を上書きしない）。WAV は scripts/tts_voicevox.py で作る。
 """
+import os
 import re
 import subprocess
 import sys
@@ -22,8 +26,16 @@ ROOT = Path(__file__).resolve().parent.parent
 OUT_DIR = ROOT / "video"
 
 W, H, FPS = 1920, 1080, 30
-FONT_R = r"C:\Windows\Fonts\BIZ-UDGothicR.ttc"
-FONT_B = r"C:\Windows\Fonts\BIZ-UDGothicB.ttc"
+def first_font(*paths):
+    return next((p for p in paths if Path(p).exists()), paths[0])
+
+
+# Windows は BIZ UDゴシック。Linux（クラウド）では Noto Sans CJK（1番目が日本語）
+FONT_R = first_font(r"C:\Windows\Fonts\BIZ-UDGothicR.ttc", "/usr/share/fonts/truetype/morisawa/BIZUDGothic-Regular.ttf",
+                    "/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc")
+FONT_B = first_font(r"C:\Windows\Fonts\BIZ-UDGothicB.ttc", "/usr/share/fonts/truetype/morisawa/BIZUDGothic-Bold.ttf",
+                    "/usr/share/fonts/opentype/noto/NotoSansCJK-Bold.ttc")
+VOICEVOX = os.environ.get("TTS", "").lower() == "voicevox"
 WHITE, GRAY, DIM = (255, 255, 255), (150, 150, 150), (90, 90, 90)
 
 
@@ -100,6 +112,9 @@ def use(key, paged=False):
     C = CONFIGS.get(key) or from_topic(key.rstrip("/"))
     if paged:
         C = dict(C, build=C["build"] + "p", audio=f"{C['build']}/audio", name=C["name"] + "_paged", paged=True)
+    if VOICEVOX:   # 音声の置き場所と動画の名前を Windows 音声版と分ける
+        audio = C.get("audio", f"{C['build']}/audio").rsplit("/", 1)[0]
+        C = dict(C, build=C["build"] + "_vv", audio=f"{audio}_vv/audio", name=C["name"] + "_voicevox")
     TSV = ROOT / C["tsv"]
     BUILD = ROOT / C["build"]
     SENTENCES, FRAMES = BUILD / "sentences.tsv", BUILD / "frames"
@@ -311,8 +326,13 @@ def frame_page(path, scene, speaker_label, sentences, ids, active, page_no, n_pa
 def frame_end(path):
     img, d = new_canvas()
     centered(d, C["end"], font(FONT_B, 84 if len(C["end"]) <= 2 else 72), 400, WHITE)
-    centered(d, [C["credit"],
-                 "音声：Windows 音声合成（Haruka・Ichiro・Ayumi）"], font(FONT_R, 40), 800, GRAY)
+    if VOICEVOX:   # 使った話者は tts_voicevox.py が cast.txt に残す
+        cast = AUDIO / "cast.txt"
+        names = cast.read_text(encoding="utf-8").strip() if cast.exists() else "ずんだもん"
+        voice = f"音声：VOICEVOX:{names}"
+    else:
+        voice = "音声：Windows 音声合成（Haruka・Ichiro・Ayumi）"
+    centered(d, [C["credit"], voice], font(FONT_R, 40), 800, GRAY)
     img.save(path)
 
 

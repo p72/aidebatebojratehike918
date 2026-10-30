@@ -307,6 +307,70 @@ uv run --with pillow python scripts/make_video.py render debate7 paged
 - 出力は `video/pass_through_debate7.mp4` と `video/pass_through_debate7_paged.mp4` です。
 - 台本は [script7_pass_through.md](script7_pass_through.md)、読み上げ用データは [script7_pass_through.csv](script7_pass_through.csv)です。
 
+## 8本目（Opus 対 Opus・ずんだもん × つむぎ）：10月の日銀会合、据え置きは正解だったのか？
+
+[video/boj_oct_manzai8.mp4](video/boj_oct_manzai8.mp4)：2026年10月29〜30日の日銀会合（政策金利1.25%で据え置き、8対1。高田委員が1.50%を提案）を、グラフ3枚を見ながら3分でしゃべる、お笑い寄りの短い版です。ファクトチェックはしていません。
+
+- **ずんだもん**（Opus-A＝Claude 本体）：利上げすべきだった派
+- **つむぎ**（Opus-B＝サブエージェント）：据え置きで正解派。発言のたびに新しいサブエージェント（モデルは opus）を起動し、`debate8/tsumugi_rules.md`・`facts.md`・`log.md` の3つだけを読ませて書かせました
+- 声は VOICEVOX（ずんだもん＝ノーマル、春日部つむぎ＝ノーマル、話す速さ1.35）。全8発言・1,255字、2分58秒
+
+| パス | 内容 |
+|---|---|
+| `debate8/facts.md` | ファクトシート（会合の結果とグラフの数字）。両者に同じものを渡した |
+| `debate8/log.md` | 討論ログ（`話者「セリフ」` を1発言1行） |
+| `debate8/tsumugi_rules.md` | Opus-B（つむぎ役）への指示 |
+| `debate8/manzai.json` | 話者（VOICEVOX のスタイルID・色・立場）、発言ごとの場面とグラフ、タイトルと最後の画面 |
+| `debate8/charts/` | 画面に出すグラフ（テイラールール、企業向けサービス価格、一般外食の要因分解） |
+| `debate8/readings.tsv` | 読み方の置き換え（r*→アールスター、高田委員→たかた委員） |
+| `scripts/make_manzai.py` | グラフを上に、セリフを下に出す動画を作る |
+| `video/boj_oct_manzai8.srt` | 動画と同じタイミングの字幕 |
+
+```bash
+python scripts/make_manzai.py prepare debate8
+```
+```bash
+python scripts/tts_voicevox.py build_debate8_vv/sentences.tsv build_debate8_vv/audio --speed 1.35
+```
+```bash
+uv run --with pillow python scripts/make_manzai.py render debate8
+```
+
+- 画面：上にグラフ、下にセリフの枠。セリフは1発言を4行までのページに分け、各ページは行の頭から組みます（ページ数が最少で、ページごとの行数がそろう分け方を選ぶ）。
+- 読み終わった文は白、読み上げ中の文は黄色の太字、まだ読んでいない文は出しません（オチを先に読まれないように）。文の置き場所は最初から決めてあるので、文が出ても行は動きません。
+- 数字や英単語（1.25%、r* など）の途中では改行せず、句読点は行の頭に来ないようにしています。
+- 外食のグラフは上半分（要因分解）だけを `manzai.json` の `crop` で切り抜いて出しています。
+
+## VOICEVOX で音声を作る（クラウド・Linux）
+
+Windows 機がなくても、クラウドの環境（Ubuntu）で VOICEVOX エンジンを動かして、音声と動画まで作れます。
+
+```bash
+bash scripts/setup_voicevox.sh
+```
+
+- VOICEVOX エンジン（Linux・CPU 版）の最新版を `~/voicevox` に入れて、`http://127.0.0.1:50021` で起動します（約1.8GB。入っていればダウンロードは飛ばし、起動済みなら何もしません）。版は `VOICEVOX_VERSION=0.26.0` のように指定できます。
+- 展開に 7z を使います（なければ apt で 7zip を入れます）。
+
+1本目〜7本目は、`TTS=voicevox` を付けると VOICEVOX 版になります。Windows 音声版を上書きしないよう、途中のファイルは `build…_vv/` に、動画は名前の末尾に `_voicevox` を付けて書き出します。
+
+```bash
+TTS=voicevox uv run --with pillow python scripts/make_video.py prepare debate7
+```
+```bash
+python scripts/tts_voicevox.py build_debate7_vv/sentences.tsv build_debate7_vv/audio --speed 1.4
+```
+```bash
+TTS=voicevox uv run --with pillow python scripts/make_video.py render debate7
+```
+
+- 配役の既定は、ナレーター（Haruka）＝春日部つむぎ、こちら側（Ichiro）＝ずんだもん、相手（Ayumi）＝四国めたんです。`--cast "Haruka=8,Ichiro=3,Ayumi=2"` か環境変数 `VOICEVOX_CAST` で変えられます（数字は VOICEVOX のスタイルID。ずんだもんはノーマル3・あまあま1・ツンツン7など）。
+- `--speed` は話す速さ（speedScale）です。1本目は 1.2 で約4分50秒でした。目安は、1.2 で毎秒約7字、1.35 で毎秒約7.9字です。
+- すでにある WAV は飛ばすので、途中で止まっても続きから作れます。作り直すときは `--force` を付けます。
+- 使った話者の名前は `audio/cast.txt` に残り、最後の画面のクレジット（`音声：VOICEVOX:ずんだもん・…`）に使います。動画を公開するときは、このクレジットを消さないでください。
+- 画面の文字は、Windows では BIZ UDゴシック、Linux では Noto Sans CJK を使います。
+- 2コアの環境で、1文あたり2〜4秒かかります（1本目の69文で約4分）。
+
 ## 別の議題で使うとき
 
 議題はスクリプトに書かず、討論フォルダの `topic.env` に書きます。スクリプトは書き換えずに、フォルダ名を引数で渡すだけです。
@@ -345,3 +409,7 @@ python scripts/make_tts.py debate4
 - [CNBC](https://www.cnbc.com/2026/09/18/japan-raises-rates-30-year-high-yen-jgb.html)
 - [第一生命経済研究所](https://www.dlri.co.jp/report/macro/665928.html)
 - [日本経済新聞](https://www.nikkei.com/article/DGXZQOUB10B710Q6A910C2000000/)
+
+8本目（10月会合）：
+- [外為どっとコム「10月日銀金融政策決定会合総括」（2026年10月30日）](https://www.gaitame.com/media/entry/2026/10/30/165152)
+- [OANDA証券「日銀金融政策決定会合の日程」](https://www.oanda.jp/lab-education/beginners/fundamentals_analysis/boj_schedule/)
