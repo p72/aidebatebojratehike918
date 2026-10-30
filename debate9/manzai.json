@@ -1,0 +1,23 @@
+{
+  "video": "inheritance_tax_manzai9",
+  "speed": 1.35,
+  "title_kicker": "ずんだもん × つむぎ　3分討論",
+  "title": ["相続税は", "日本の資本を食べちゃうのだ？"],
+  "header": "相続税とマクロの資本蓄積｜総量の税？配分の税？",
+  "speakers": {
+    "ずんだもん": {"style": 3, "color": [139, 209, 75], "tag": "相続税は資本の天敵派", "credit": "Claude Opus 5.5（Opus-A）"},
+    "つむぎ": {"style": 8, "color": [247, 197, 49], "tag": "相続税は配分の税派", "credit": "Claude Opus 5.5（Opus-B・サブエージェント）"}
+  },
+  "turns": [
+    {"scene": "その1　資本とGDP（米国のモデル）", "chart": "macro.png"},
+    {"scene": "その1　資本とGDP（米国のモデル）", "chart": "macro.png"},
+    {"scene": "その2　ためる量と節税", "chart": "elasticity.png"},
+    {"scene": "その2　ためる量と節税", "chart": "elasticity.png"},
+    {"scene": "その3　事業承継", "chart": "greece.png"},
+    {"scene": "その3　事業承継", "chart": "greece.png"},
+    {"scene": "その4　日本", "chart": "japan.png"},
+    {"scene": "その4　日本", "chart": "japan.png"}
+  ],
+  "end": ["直すべきは税率？それとも抜け道？", "ずんだ餅は、早めに若い子へ"],
+  "notes": "グラフ：調査レポートの数字から作成（国税庁、各論文）"
+}

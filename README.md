@@ -341,6 +341,30 @@ uv run --with pillow python scripts/make_manzai.py render debate8
 - 数字や英単語（1.25%、r* など）の途中では改行せず、句読点は行の頭に来ないようにしています。
 - 外食のグラフは上半分（要因分解）だけを `manzai.json` の `crop` で切り抜いて出しています。
 
+## 9本目（Opus 対 Opus・ずんだもん × つむぎ）：相続税は日本の資本を食べちゃうのか？
+
+[video/inheritance_tax_manzai9.mp4](video/inheritance_tax_manzai9.mp4)：調査レポート「相続税は総量より『配分』を動かす」をもとに、グラフ4枚を見ながら3分でしゃべるお笑い寄りの版です。作り方は8本目と同じで、ファクトチェックはしていません。
+
+- **ずんだもん**（Opus-A＝Claude 本体）：相続税は資本の天敵派
+- **つむぎ**（Opus-B＝サブエージェント）：相続税は配分の税派。発言のたびに新しいサブエージェント（opus）に `debate9/tsumugi_rules.md`・`facts.md`・`log.md` だけを読ませて書かせました
+- 全8発言・1,214字、2分53秒（話す速さ1.35）
+
+| パス | 内容 |
+|---|---|
+| `debate9/facts.md` | ファクトシート（レポートの結論と、グラフごとの数字） |
+| `debate9/log.md` | 討論ログ |
+| `debate9/tsumugi_rules.md` | Opus-B（つむぎ役）への指示 |
+| `debate9/manzai.json` | 話者・場面・グラフ・タイトル |
+| `debate9/make_charts.py` | グラフ4枚（米国モデルの資本・GDP、税への反応、ギリシャの事業承継、日本の課税割合と財産構成）を作る |
+| `debate9/charts/` | 画面に出すグラフ |
+
+```bash
+python debate9/make_charts.py
+python scripts/make_manzai.py prepare debate9
+python scripts/tts_voicevox.py build_debate9_vv/sentences.tsv build_debate9_vv/audio --speed 1.35
+uv run --with pillow python scripts/make_manzai.py render debate9
+```
+
 ## VOICEVOX で音声を作る（クラウド・Linux）
 
 Windows 機がなくても、クラウドの環境（Ubuntu）で VOICEVOX エンジンを動かして、音声と動画まで作れます。
