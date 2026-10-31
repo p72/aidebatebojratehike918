@@ -1,0 +1,27 @@
+{
+  "video": "its_baaack_manzai10",
+  "speed": 1.25,
+  "title_kicker": "ずんだもん × つむぎ　5分討論",
+  "title": ["クルーグマンの「イッツバック」は", "貨幣数量説なのだ？"],
+  "header": "クルーグマン「It's Baaack」（1998）｜お金の約束？名目所得の約束？",
+  "speakers": {
+    "ずんだもん": {"style": 3, "color": [139, 209, 75], "tag": "貨幣数量説派", "credit": "Claude Opus 5.5（Opus-A）"},
+    "つむぎ": {"style": 8, "color": [247, 197, 49], "tag": "名目所得＋財政派", "credit": "Claude Opus 5.5（Opus-B・サブエージェント）"}
+  },
+  "turns": [
+    {"scene": "その1　流動性の罠ってなに", "chart": "trap.png"},
+    {"scene": "その1　流動性の罠ってなに", "chart": "trap.png"},
+    {"scene": "その2　無責任になる約束", "chart": "promise.png"},
+    {"scene": "その2　無責任になる約束", "chart": "promise.png"},
+    {"scene": "その3　モデルのしかけ", "chart": "model.png"},
+    {"scene": "その3　モデルのしかけ", "chart": "model.png"},
+    {"scene": "その4　日本でやってみたら", "chart": "japan.png"},
+    {"scene": "その4　日本でやってみたら", "chart": "japan.png"},
+    {"scene": "その5　財政の出番", "chart": "fiscal.png"},
+    {"scene": "その5　財政の出番", "chart": "fiscal.png"},
+    {"scene": "その6　結局どう読む", "chart": "mix.png"},
+    {"scene": "その6　結局どう読む", "chart": "mix.png"}
+  ],
+  "end": ["お金の約束？名目所得の約束？", "約束だけのお餅は、ただの白いお餅"],
+  "notes": "グラフ：考え方を示す図はPythonで作成（数字は説明用の例）。日本の数字は概数"
+}

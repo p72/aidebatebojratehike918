@@ -365,6 +365,32 @@ python scripts/tts_voicevox.py build_debate9_vv/sentences.tsv build_debate9_vv/a
 uv run --with pillow python scripts/make_manzai.py render debate9
 ```
 
+## 10本目（Opus 対 Opus・ずんだもん × つむぎ）：クルーグマンの「イッツバック」は貨幣数量説なのか？
+
+[video/its_baaack_manzai10.mp4](video/its_baaack_manzai10.mp4)：クルーグマン「It's Baaack」（1998）を、Python で作ったグラフ6枚を見ながら5分でしゃべるお笑い寄りの版です。作り方は8本目と同じで、ファクトチェックはしていません。
+
+- **ずんだもん**（Opus-A＝Claude 本体）：将来のマネーサプライを増やせばデフレを脱却できる、貨幣数量説派
+- **つむぎ**（Opus-B＝サブエージェント）：論文は将来の産出を固定しているので、物価の約束＝名目所得の約束になっている。現実には名目所得の道すじを支える需要が要り、財政は補完になりうる派（主張はユーザーが指定）。発言のたびに新しいサブエージェント（opus）に `debate10/tsumugi_rules.md`・`facts.md`・`log.md` だけを読ませて書かせました
+- 全12発言・1,988字、4分50秒（話す速さ1.25）
+- グラフ1〜3・5・6は考え方を示す図で、数字は説明用の例です。グラフ4（日本）の数字は概数です
+
+| パス | 内容 |
+|---|---|
+| `debate10/facts.md` | ファクトシート（論文の要点と、グラフごとの数字） |
+| `debate10/log.md` | 討論ログ |
+| `debate10/tsumugi_rules.md` | Opus-B（つむぎ役）への指示 |
+| `debate10/manzai.json` | 話者・場面・グラフ・タイトル |
+| `debate10/readings.tsv` | 読みの置き換え（年3%→ねん3%） |
+| `debate10/make_charts.py` | グラフ6枚（流動性の罠、無責任になる約束、モデルのしかけ、日本、財政の補完、三つの読み方）を作る |
+| `debate10/charts/` | 画面に出すグラフ |
+
+```bash
+python debate10/make_charts.py
+python scripts/make_manzai.py prepare debate10
+python scripts/tts_voicevox.py build_debate10_vv/sentences.tsv build_debate10_vv/audio --speed 1.25
+uv run --with pillow python scripts/make_manzai.py render debate10
+```
+
 ## VOICEVOX で音声を作る（クラウド・Linux）
 
 Windows 機がなくても、クラウドの環境（Ubuntu）で VOICEVOX エンジンを動かして、音声と動画まで作れます。
