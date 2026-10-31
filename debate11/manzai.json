@@ -1,0 +1,87 @@
+{
+  "video": "krugman_japan_manzai11",
+  "speed": 1.25,
+  "title_kicker": "ずんだもん × つむぎ　5分討論",
+  "title": [
+    "クルーグマンの日本経済論",
+    "1998 → 2014 → 2015　変節したのだ？"
+  ],
+  "header": "クルーグマンの日本経済論｜イッツバック → 日本に謝る → 日本を考え直す",
+  "speakers": {
+    "ずんだもん": {
+      "style": 3,
+      "color": [
+        139,
+        209,
+        75
+      ],
+      "tag": "変節派",
+      "credit": "Claude Opus 5.5（Opus-A）"
+    },
+    "つむぎ": {
+      "style": 8,
+      "color": [
+        247,
+        197,
+        49
+      ],
+      "tag": "一貫（前提の更新）派",
+      "credit": "Claude Opus 5.5（Opus-B・サブエージェント）"
+    }
+  },
+  "turns": [
+    {
+      "scene": "その1　1998年　イッツバック",
+      "chart": "timeline.png"
+    },
+    {
+      "scene": "その1　1998年　イッツバック",
+      "chart": "timeline.png"
+    },
+    {
+      "scene": "その2　1998年の前提",
+      "chart": "premise1998.png"
+    },
+    {
+      "scene": "その2　1998年の前提",
+      "chart": "premise1998.png"
+    },
+    {
+      "scene": "その3　2014年　日本に謝る",
+      "chart": "apology2014.png"
+    },
+    {
+      "scene": "その3　2014年　日本に謝る",
+      "chart": "apology2014.png"
+    },
+    {
+      "scene": "その4　2014年　安倍首相と消費税",
+      "chart": "abe2014.png"
+    },
+    {
+      "scene": "その4　2014年　安倍首相と消費税",
+      "chart": "abe2014.png"
+    },
+    {
+      "scene": "その5　2015年　日本を考え直す",
+      "chart": "rethink2015.png"
+    },
+    {
+      "scene": "その5　2015年　日本を考え直す",
+      "chart": "rethink2015.png"
+    },
+    {
+      "scene": "その6　変節か、一貫か",
+      "chart": "summary.png"
+    },
+    {
+      "scene": "その6　変節か、一貫か",
+      "chart": "summary.png"
+    }
+  ],
+  "end": [
+    "前提が変われば、処方箋も変わる",
+    "天気予報が雨なら、傘を持っていくのだ"
+  ],
+  "notes": "グラフ：Pythonで作成。引用は各コラム・ブログの要旨。※印は未確認"
+}

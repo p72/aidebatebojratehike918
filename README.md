@@ -409,6 +409,22 @@ python scripts/tts_voicevox.py build_debate10b_vv/sentences.tsv build_debate10b_
 uv run --with pillow python scripts/make_manzai.py render debate10b
 ```
 
+## 11本目（Opus 対 Opus・ずんだもん × つむぎ）：クルーグマンの日本経済論 1998 → 2014 → 2015　変節したのか？
+
+[video/krugman_japan_manzai11.mp4](video/krugman_japan_manzai11.mp4)：「イッツバック」（1998）→「日本に謝る」（2014）→「日本を考え直す」（2015）を、グラフ6枚を見ながら5分でしゃべるお笑い寄りの版です。5分13秒・全12発言・2,080字（話す速さ1.25）。
+
+- **ずんだもん**（Opus-A＝Claude 本体）：変節派
+- **つむぎ**（Opus-B＝サブエージェント）：一貫（前提の更新）派。1998年は「罠は一時的、将来は元に戻る」という前提、2015年は「自然利子率がずっとマイナスかも」に前提を更新した、という立場
+- グラフ：三本の年表と日銀の政策、1998年の前提（自然利子率の一時的なマイナスと ZLB）、2014年の日本と西側のまちがいの比較、2014年の流れ（消費税・追加緩和・面会・延期）、2015年の前提の書きかえと脱出速度、前提と処方箋の対応表
+- facts.md の※印（2014年11月の面会と延期の時期、人口減少の背景、年4%程度の提案）は未確認です
+
+```bash
+python debate11/make_charts.py
+python scripts/make_manzai.py prepare debate11
+python scripts/tts_voicevox.py build_debate11_vv/sentences.tsv build_debate11_vv/audio --speed 1.25
+uv run --with pillow python scripts/make_manzai.py render debate11
+```
+
 ## VOICEVOX で音声を作る（クラウド・Linux）
 
 Windows 機がなくても、クラウドの環境（Ubuntu）で VOICEVOX エンジンを動かして、音声と動画まで作れます。
