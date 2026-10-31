@@ -391,6 +391,24 @@ python scripts/tts_voicevox.py build_debate10_vv/sentences.tsv build_debate10_vv
 uv run --with pillow python scripts/make_manzai.py render debate10
 ```
 
+## 10本目・修正版：GPT の監査を反映（「将来の産出 Y* が実現する」が大事な仮定）
+
+[video/its_baaack_manzai10b.mp4](video/its_baaack_manzai10b.mp4)：10本目の台本を GPT に監査してもらい（`debate10b/audit_gpt.txt`）、ユーザーの指摘「クルーグマンのモデルは、将来 Y* が実現することが大事な仮定」を軸に作り直した版です。5分6秒・全12発言・2,090字（話す速さ1.25）。
+
+主な修正：
+- その3：論文は将来の産出 Y* が実現すると仮定するので、P*=M*/Y* となり、物価の約束＝名目所得の約束になる。右の図は独自の拡張と明示し、1.10×0.94＝1.034（+3.4%）に修正。緩和そのものが産出を押し上げる可能性にもふれる
+- その4：マネタリーベースを2012年末の約138兆円 → 2023年末の約673兆円に。「2%の持続的な物価上昇は実現せず」とし、単純な数量説への反証であって約束の理論の反証ではない、と整理
+- その5：クルーグマン自身が、財政が軽く見えるのは代表的家計とリカードの等価定理のせい（p.159）、政策の組み合わせに財政刺激を（p.179）と書いていることを入れた
+- その6：財政は「必須ではないが有力な補完」。拡張は原論文から自動的に出る結論ではない、と明示
+- ずんだもんは単純な数量説から始めて、途中からクルーグマンの原理論を代弁する役に。グラフは専門用語・数式あり（ZLB、P*=M*/Y*、NGDPLT など）
+
+```bash
+python debate10b/make_charts.py
+python scripts/make_manzai.py prepare debate10b
+python scripts/tts_voicevox.py build_debate10b_vv/sentences.tsv build_debate10b_vv/audio --speed 1.25
+uv run --with pillow python scripts/make_manzai.py render debate10b
+```
+
 ## VOICEVOX で音声を作る（クラウド・Linux）
 
 Windows 機がなくても、クラウドの環境（Ubuntu）で VOICEVOX エンジンを動かして、音声と動画まで作れます。

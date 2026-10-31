@@ -1,0 +1,87 @@
+{
+  "video": "its_baaack_manzai10b",
+  "speed": 1.25,
+  "title_kicker": "ずんだもん × つむぎ　5分討論",
+  "title": [
+    "クルーグマンの「イッツバック」は",
+    "貨幣数量説なのだ？（修正版）"
+  ],
+  "header": "クルーグマン「It's Baaack」（1998）｜将来の産出 Y* は実現するのか？",
+  "speakers": {
+    "ずんだもん": {
+      "style": 3,
+      "color": [
+        139,
+        209,
+        75
+      ],
+      "tag": "将来のお金の約束派",
+      "credit": "Claude Opus 5.5（Opus-A）"
+    },
+    "つむぎ": {
+      "style": 8,
+      "color": [
+        247,
+        197,
+        49
+      ],
+      "tag": "名目所得＋財政派",
+      "credit": "Claude Opus 5.5（Opus-B・サブエージェント）"
+    }
+  },
+  "turns": [
+    {
+      "scene": "その1　流動性の罠ってなに",
+      "chart": "trap.png"
+    },
+    {
+      "scene": "その1　流動性の罠ってなに",
+      "chart": "trap.png"
+    },
+    {
+      "scene": "その2　無責任になる約束",
+      "chart": "promise.png"
+    },
+    {
+      "scene": "その2　無責任になる約束",
+      "chart": "promise.png"
+    },
+    {
+      "scene": "その3　モデルのしかけ",
+      "chart": "model.png"
+    },
+    {
+      "scene": "その3　モデルのしかけ",
+      "chart": "model.png"
+    },
+    {
+      "scene": "その4　日本でやってみたら",
+      "chart": "japan.png"
+    },
+    {
+      "scene": "その4　日本でやってみたら",
+      "chart": "japan.png"
+    },
+    {
+      "scene": "その5　財政の出番",
+      "chart": "fiscal.png"
+    },
+    {
+      "scene": "その5　財政の出番",
+      "chart": "fiscal.png"
+    },
+    {
+      "scene": "その6　結局どう読む",
+      "chart": "mix.png"
+    },
+    {
+      "scene": "その6　結局どう読む",
+      "chart": "mix.png"
+    }
+  ],
+  "end": [
+    "将来の産出は、ほんとに戻ってくる？",
+    "財政は爪楊枝じゃなくて、お箸"
+  ],
+  "notes": "グラフ：Pythonで作成。マネタリーベースは日銀の年末残高。台本はGPTの監査を反映"
+}
