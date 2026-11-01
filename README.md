@@ -425,6 +425,27 @@ python scripts/tts_voicevox.py build_debate11_vv/sentences.tsv build_debate11_vv
 uv run --with pillow python scripts/make_manzai.py render debate11
 ```
 
+## 12本目（台本のみ・Opus 対 gpt-6-astra・学会調）：期待インフレ率は正確に計測できるのか？しているのか？
+
+議題「我々人類は、期待インフレ率（中心値、上下リスク幅）を正確に計測できるのか？しているのか？」を、専門用語のみの学会調で討論させた台本です（動画はまだ）。ファクトチェックはしていません。
+
+- **Opus**（Claude 本体）：懐疑派。人類は期待そのものではなく、期待の代理変数の集合を測っているにすぎない
+- **gpt-6-astra**（Codex CLI）：計測可能派。識別の限界はあるが、複数ソースの三角測量・密度サーベイ・期間構造モデルの分解で、政策目的に十分な計測をしている。セリフは `scripts/astra_academic.sh` で生成し、手を加えていません
+- 冒頭・反論1・反論2・最終弁論の各4発言、計8発言・約4,000字
+
+| パス | 内容 |
+|---|---|
+| `debate12/log.md` | 台本（討論ログ） |
+| `debate12/facts.md` | ファクトシート（計測手段・識別の論点・日本の文脈。具体的な数値は入れていない） |
+| `debate12/topic.env` | 議題と両者の立場 |
+| `debate12/astra_turn*.txt` | gpt-6-astra の出力そのまま |
+| `scripts/astra_academic.sh` | 学会調（である調・専門用語そのまま）で gpt-6-astra のターンを書かせるスクリプト |
+
+```bash
+npm install -g @openai/codex && codex login --device-auth   # 初回だけ
+scripts/astra_academic.sh debate12 1 opening    # 2・3 は rebuttal、4 は closing
+```
+
 ## VOICEVOX で音声を作る（クラウド・Linux）
 
 Windows 機がなくても、クラウドの環境（Ubuntu）で VOICEVOX エンジンを動かして、音声と動画まで作れます。
